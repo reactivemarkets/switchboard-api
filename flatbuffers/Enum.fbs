@@ -24,14 +24,14 @@ enum FeedType: int16 {
 }
 
 // Buy or sell side of the market.
-enum Side: int16 {
+enum Side: int8 {
     Sell = -1,
     None = 0,
     Buy = 1
 }
 
 // Subscription request type.
-enum SubReqType: int16 {
+enum SubReqType: int8 {
     // Subscribe to one or more market feeds.
     Subscribe = 1,
     // Unsubscribe from one or more market feeds.
