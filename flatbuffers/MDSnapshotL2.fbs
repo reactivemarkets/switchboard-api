@@ -1,0 +1,59 @@
+// -*- mode: idl; fill-column: 80; -*-
+// Copyright (C) 2020 Reactive Markets Limited
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+include "Enum.fbs";
+
+namespace com.reactivemarkets.papi;
+
+// MDLevel2 represents an entry in the level 2 order book. A level 2 order book
+// comprises one or more levels, where each level is aggregated either by price
+// or quantity, depending on the feed type.
+struct MDLevel2 {
+    qty: float64;
+    price: float64;
+}
+
+// The MDSnapshotL2 messages is sent by the server when there is a market-data
+// update.
+table MDSnapshotL2 {
+    // Source system timestamp as nanoseconds since Unix epoch.
+    // This timestamp may be zero when the book is cleared and the sequence
+    // reset to zero.
+    source_ts: int64 (id: 0);
+    // Source system identifier.
+    source: string (id: 1);
+    // Market symbol.
+    market: string (id: 2, required);
+    // Feed identifier.
+    feed_id: int32 (id: 3);
+    // A marker-specific identifier that uniquely identifies this update.
+    // The identifier may be periodically reset by the source system. Clients
+    // should treat this as an opaque identifier and should not attempt to infer
+    // meaning from its content.
+    // Zero is reserved as a special case for clearing or resetting the book.
+    // This feature is only available on supported feed-types.
+    id: int64 (id: 4);
+    // The desired number of levels in the market-data book.
+    // This feature is only available on supported feed-types.
+    // Currently supported values are: 1, 5 and 10.
+    // This feature is only available on supported feeds.
+    depth: int16 (id: 5);
+    // Bitset describing the attributes of the market or update.
+    flags: uint16 = 0 (id: 6);
+    // Level-2 bid data.
+    bid_side: [MDLevel2] (id: 7);
+    // Level-2 offer data.
+    offer_side: [MDLevel2] (id: 8);
+}

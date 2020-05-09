@@ -1,0 +1,47 @@
+// -*- mode: idl; fill-column: 80; -*-
+// Copyright (C) 2020 Reactive Markets Limited
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+include "Enum.fbs";
+
+namespace com.reactivemarkets.papi;
+
+// Public trade information.
+table PublicTrade {
+    // Source system timestamp as nanoseconds since Unix epoch.
+    source_ts: int64 (id: 0);
+    // Source system identifier.
+    source: string (id: 1);
+    // Market symbol.
+    market: string (id: 2, required);
+    // Feed identifier.
+    feed_id: int32 (id: 3);
+    // Optional identifier or sequence number assigned by the execution venue.
+    trade_id: string (id: 4);
+    // Bitset describing the attributes of the market or update.
+    flags: uint16 = 0 (id: 5);
+    // Trade direction. This field is always from the taker's perspective:
+    // - Buy: aggressor/taker bought;
+    // - Sell: aggressor/taker sold.
+    // The quantiy may be zero (None) if the underlying execution venue does not
+    // publish this information.
+    side: Side (id: 6);
+    // Trade quantity. The quantiy may be zero if the underlying execution venue does not
+    // publish this information.
+    qty: float64 (id: 7);
+    // Trade price.
+    price: float64 (id: 8);
+    // Underyling execution venue.
+    exec_venue: string (id: 9);
+}
