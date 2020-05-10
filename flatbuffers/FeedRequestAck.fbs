@@ -15,7 +15,7 @@
 
 include "Enum.fbs";
 
-namespace com.reactivemarkets.papi;
+namespace reactivemarkets.papi;
 
 // The FeedRequestAck is sent by the server to acknowledge a successful
 // FeedRequest.

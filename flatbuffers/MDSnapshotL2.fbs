@@ -15,7 +15,7 @@
 
 include "Enum.fbs";
 
-namespace com.reactivemarkets.papi;
+namespace reactivemarkets.papi;
 
 // MDLevel2 represents an entry in the level 2 order book. A level 2 order book
 // comprises one or more levels, where each level is aggregated either by price

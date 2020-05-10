@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace com.reactivemarkets.papi;
+namespace reactivemarkets.papi;
 
 // An enumerated list of feed types, which may include different kinds of
 // aggregation, liquidity views, public trade feeds, trading signals, and other

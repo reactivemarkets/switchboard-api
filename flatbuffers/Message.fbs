@@ -24,7 +24,7 @@ include "SessionStatus.fbs";
 file_identifier "RMF1";
 file_extension "rmf";
 
-namespace com.reactivemarkets.papi;
+namespace reactivemarkets.papi;
 
 union Body {
     FeedRequest,

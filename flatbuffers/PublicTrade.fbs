@@ -15,7 +15,7 @@
 
 include "Enum.fbs";
 
-namespace com.reactivemarkets.papi;
+namespace reactivemarkets.papi;
 
 // Public trade information.
 table PublicTrade {

@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace com.reactivemarkets.papi;
+namespace reactivemarkets.papi;
 
 // The FeedRequestReject is sent by the server when a FeedRequest cannot be
 // satisfied for business, operational, or technical reasons.

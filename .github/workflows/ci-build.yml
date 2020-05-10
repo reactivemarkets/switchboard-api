@@ -32,11 +32,7 @@ jobs:
 
       - name: Generate code
         run: |
-          for lang in cpp go java js python ts; do
-            flatc --$lang -o build/$lang flatbuffers/*.fbs
-          done
-          mv build/go/com/reactivemarkets/papi ./build/go/
-          rm -fr build/go/com/
+          ./build.sh
 
       - name: Upload build code
         uses: actions/upload-artifact@v2
