@@ -19,17 +19,21 @@ set -euo pipefail
 rm -fr build
 
 # Generate for languages that do not require additional options.
-for lang in java js python ts; do
+for lang in csharp java python; do
     flatc --$lang -o build/$lang flatbuffers/*.fbs
 done
 
 # Generate for C++ with additional options.
 flatc --cpp --no-prefix --scoped-enums \
-      -o build/cpp flatbuffers/*.fbs
+    -o build/cpp flatbuffers/*.fbs
 
 # Generate for Go with overridden namespace.
 flatc --go --go-namespace papi \
-      -o build/go flatbuffers/*.fbs
+    -o build/go flatbuffers/*.fbs
+
+# Generate for Typescript with additional options.
+flatc --ts --short-names --no-fb-import \ 
+    -o build/ts flatbuffers/*.fbs
 
 # Update Java package name to: com.reactivemarkets.papi
 # N.B. the flatc code-generator for Java does not support an option
