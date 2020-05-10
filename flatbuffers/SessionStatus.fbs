@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace com.reactivemarkets.papi;
+namespace reactivemarkets.papi;
 
 // Pricing or trading session status. This is a system wide status that applies
 // to all feeds and markets provided by the source system.
