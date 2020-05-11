@@ -32,7 +32,7 @@ flatc --go --go-namespace papi \
     -o build/go flatbuffers/*.fbs
 
 # Generate for Typescript with additional options.
-flatc --ts --short-names --no-fb-import \ 
+flatc --ts --short-names --no-fb-import \
     -o build/ts flatbuffers/*.fbs
 
 # Update Java package name to: com.reactivemarkets.papi
