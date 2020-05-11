@@ -20,11 +20,11 @@ include "MDSnapshotL2.fbs";
 include "PublicTrade.fbs";
 include "SessionStatus.fbs";
 
-// Reactive Markets Feed (RMF).
-file_identifier "RMF1";
-file_extension "rmf";
+// Reactive Markets Platform (RMP).
+file_identifier "RMP1";
+file_extension "rmp";
 
-namespace reactivemarkets.papi;
+// {{namespace}}
 
 union Body {
     FeedRequest,
