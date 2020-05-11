@@ -15,7 +15,7 @@
 
 include "Enum.fbs";
 
-namespace reactivemarkets.papi;
+// {{namespace}}
 
 // The FeedRequest message represents a client request to either subscribe to or
 // unsubscribe from one or more market feeds.

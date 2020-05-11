@@ -13,33 +13,42 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -euo pipefail
+set -eu
+
+tempdir=build/tmp
+
+onexit()
+{
+    # Remove temporary directory on exit.
+    rm -rf "$tempdir"
+}
 
 # Remove old build directory.
 rm -fr build
+mkdir -p "$tempdir"
+trap onexit INT EXIT
 
-# Generate for languages that do not require additional options.
-for lang in csharp java python; do
-    flatc --$lang -o build/$lang flatbuffers/*.fbs
-done
+generate()
+{
+    local lang=$1
+    local ns=$2
+    local opts="${@:3}"
 
-# Generate for C++ with additional options.
-flatc --cpp --no-prefix --scoped-enums \
-    -o build/cpp flatbuffers/*.fbs
+    if [[ "$ns" = "" ]]; then
+        # If namespace is empty, then simply copy fbs files to temporary directory.
+        cp flatbuffers/*.fbs "$tempdir/"
+    else
+        # Substitute namespace placeholder with language-specific namespace.
+        for f in flatbuffers/*.fbs; do
+            sed "s|// {{namespace}}|namespace $ns;|" $f >"$tempdir/${f##*/}"
+        done
+    fi
+    flatc "--$lang" $opts -o "build/$lang" "$tempdir/"*.fbs
+}
 
-# Generate for Go with overridden namespace.
-flatc --go --go-namespace papi \
-    -o build/go flatbuffers/*.fbs
-
-# Generate for Typescript with additional options.
-flatc --ts --short-names --no-fb-import \
-    -o build/ts flatbuffers/*.fbs
-
-# Update Java package name to: com.reactivemarkets.papi
-# N.B. the flatc code-generator for Java does not support an option
-# for overriding the namespace.
-
-sed -i 's/package reactivemarkets.papi;/package com.reactivemarkets.papi;/' \
-    build/java/reactivemarkets/papi/*.java
-mkdir build/java/com
-mv build/java/reactivemarkets build/java/com/
+generate cpp reactivemarkets.papi --no-prefix --scoped-enums
+generate csharp ReactiveMarkets.PlatformApi
+generate go papi
+generate java com.reactivemarkets.papi
+generate python reactivemarkets.papi
+generate ts PlatformApi --short-names --no-fb-import
