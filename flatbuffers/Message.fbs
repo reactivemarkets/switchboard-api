@@ -14,7 +14,7 @@
 // limitations under the License.
 
 include "FeedRequest.fbs";
-include "FeedRequestAck.fbs";
+include "FeedRequestAccept.fbs";
 include "FeedRequestReject.fbs";
 include "MDSnapshotL2.fbs";
 include "PublicTrade.fbs";
@@ -28,7 +28,7 @@ namespace reactivemarkets.papi;
 
 union Body {
     FeedRequest,
-    FeedRequestAck,
+    FeedRequestAccept,
     FeedRequestReject,
     MDSnapshotL2,
     PublicTrade,

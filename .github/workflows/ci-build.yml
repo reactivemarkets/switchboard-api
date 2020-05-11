@@ -15,7 +15,7 @@
 name: CI Build
 
 on:
-  push:
+  pull_request:
     branches:
       - master
 
@@ -33,40 +33,3 @@ jobs:
       - name: Generate code
         run: |
           ./build.sh
-
-      - name: Upload build code
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: build/
-
-  push:
-    runs-on: ubuntu-latest
-    needs: build
-
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
-
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v2
-
-      - name: Download generated code
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: build/
-
-      - name: Commit generated code
-        run: |
-          rsync -a build/ ./
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          git commit -a -m "Code generation"
-
-      - name: Push generated code
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: latest
-          force: true

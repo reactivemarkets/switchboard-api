@@ -17,9 +17,9 @@ include "Enum.fbs";
 
 namespace reactivemarkets.papi;
 
-// The FeedRequestAck is sent by the server to acknowledge a successful
+// The FeedRequestAccept is sent by the server to acknowledge a successful
 // FeedRequest.
-table FeedRequestAck {
+table FeedRequestAccept {
     // Request identifier assigned by the client.
     // Only the first 48 characters are significant.
     req_id: string (id: 0);
