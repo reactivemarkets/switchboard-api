@@ -10,3 +10,8 @@
 # Build.
 /build/
 node_modules/
+
+/python/env
+/python/.eggs
+/python/dist
+/python/reactive_papi*
