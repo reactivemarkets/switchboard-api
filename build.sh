@@ -46,9 +46,9 @@ generate()
     flatc "--$lang" $opts -o "build/$lang" "$tempdir/"*.fbs
 }
 
-generate cpp reactivemarkets.papi --no-prefix --scoped-enums
+generate cpp reactive.papi --no-prefix --scoped-enums
 generate csharp ReactiveMarkets.PlatformApi
 generate go papi
 generate java com.reactivemarkets.papi
-generate python reactivemarkets.papi
+generate python reactive.papi
 generate ts PlatformApi --short-names --no-fb-import
