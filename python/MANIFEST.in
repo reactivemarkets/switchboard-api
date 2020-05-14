@@ -1,0 +1,11 @@
+include CHANGELOG
+include LICENSE
+include README.md
+
+prune .github
+
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *~
+global-exclude .git
+global-exclude .gitignore
