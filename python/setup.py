@@ -26,4 +26,5 @@ setup(
     setup_requires=['setuptools_scm'],
     packages=find_packages(),
     package_dir={"reactive": "reactive"},
+    namespace_packages=['reactive'],
 )

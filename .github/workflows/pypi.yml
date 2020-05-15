@@ -38,6 +38,7 @@ jobs:
     - name: Build package
       run: |
         cd python
+        if [ -d "reactive" ]; then echo "__import__('pkg_resources').declare_namespace(__name__)" > reactive/__init__.py; fi
         export SETUPTOOLS_SCM_PRETEND_VERSION=${GITHUB_REF:10}
         python setup.py sdist bdist_wheel
 
