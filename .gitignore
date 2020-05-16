@@ -15,3 +15,7 @@ node_modules/
 /python/.eggs
 /python/dist
 /python/reactive_papi*
+/target/
+/.classpath
+/.project
+/.settings/
