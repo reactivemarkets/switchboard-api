@@ -1,67 +1,55 @@
-# Platform SDK
+# Reactive Platform API
 
-One Paragraph of project description goes here.
+The Reactive Platform provides a API for subscribing to streaming market-data over WebSockets.
+
+The API uses [Google Flatbuffers](https://google.github.io/flatbuffers/) to binary-encode
+application messages trasmitted over WebSockets.
+Flatbuffers provides an efficient serialisation/deserialisaton mechanism in terms of both processing
+and space requirements.
+
+See our [Developer Docs](https://reactivemarkets.github.io/developer/) for full documentation.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for
-development and testing purposes. See deployment for notes on how to deploy the project on a live
-system.
+Generated code for the following languages is available on the
+[latest](https://github.com/reactivemarkets/platform-api/tree/latest) branch and
+[releases](https://github.com/reactivemarkets/platform-api/releases):
 
-### Prerequisites
+- C++
+- C#
+- Go
+- Java
+- Python
+- TypeScript
 
-What things you need to install the software and how to install them.
+The Flatbuffers schema files are located in the [flatbuffers](flatbuffers/) directory.
 
-```
-Give examples
+Code can be generated for additional languages supported by Flatbuffers using the `flatc` compiler:
+
+```bash
+$ flatc --rust *.fbs
 ```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development environment running.
+Build artefacts are available for several languages:
 
-Say what the step will be.
-
-```
-First step
-```
-
-And repeat.
-
-```
-Next step
-```
-
-Conclude with an example of getting some data out of the system or using it for a little demo.
-
-## Running the tests
-
-Explain how to run the automated tests for this system.
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+- Go: `go get github.com/reactivemarkets/platform-api@latest`
+- Java: [Maven Package](https://search.maven.org/artifact/com.reactivemarkets/papi)
+- Python: [PyPi Package](https://pypi.org/project/reactive-papi)
+- JavaScript: [NPM Package](https://www.npmjs.com/package/@reactivemarkets/platform-api)
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details
 on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on
-this repository](https://github.com/your/project/tags).
+We use [SemVer](https://semver.org/) for versioning. For the versions available, see the [releases
+page](https://github.com/reactivemarkets/platform-api/releases).
 
 ## License
 
-This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used.
-* Inspiration.
-* etc.
+This project is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0).
+A copy of the license is available in the [LICENSE](LICENSE) file.
