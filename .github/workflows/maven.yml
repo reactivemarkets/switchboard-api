@@ -36,6 +36,10 @@ jobs:
         with:
           java-version: 8
 
+      - name: Set release version
+        run: |
+          echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF##*/} | sed "s,^v,,")
+
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1
         with:
