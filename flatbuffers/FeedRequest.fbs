@@ -13,34 +13,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// See https://developer.reactivemarkets.com/api for documentation.
+
 include "Enum.fbs";
 
 // {{namespace}}
 
-// The FeedRequest message represents a client request to either subscribe to or
-// unsubscribe from one or more market feeds.
 table FeedRequest {
-    // Request identifier assigned by the client.
-    // Only the first 48 characters are significant.
     req_id: string (id: 0);
-    // Subscription request type.
     sub_req_type: SubReqType = 1 (id: 1);
-    // Feed type.
     feed_type: FeedType (id: 2);
-    // The aggregation grouping granularity.
-    // This parameter is commonly used to describe the tick grouping at each
-    // level in the order book, but it may also be used for other purposes.
-    // This feature is only available on supported feeds.
     grouping: uint16 (id: 3);
-    // The desired number of levels in the market-data book.
-    // This feature is only available on supported feed-types.
-    // Currently supported values are: 1, 5 and 10.
-    // This feature is only available on supported feeds.
     depth: int16 (id: 4);
-    // The desired update frequency.
-    // The frequency need not be specified when unsubscribing.
-    // This feature is only available on supported feeds.
     frequency: int16 (id: 5);
-    // The set of markets to which the request applies.
     markets: [string] (id: 6);
 }

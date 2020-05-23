@@ -13,17 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// See https://developer.reactivemarkets.com/api for documentation.
+
 // {{namespace}}
 
-// Pricing or trading session status. This is a system wide status that applies
-// to all feeds and markets provided by the source system.
 table SessionStatus {
-    // Source system timestamp as nanoseconds since Unix epoch.
     source_ts: int64 (id: 0);
-    // Source system identifier.
     source: string (id: 1);
-    // Status code.
-    code: int (id: 2);
-    // Detailed status message.
+    code: int32 (id: 2);
     message: string (id: 3);
 }
