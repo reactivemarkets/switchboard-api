@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// See https://developer.reactivemarkets.com/api for documentation.
+
 include "FeedRequest.fbs";
 include "FeedRequestAccept.fbs";
 include "FeedRequestReject.fbs";
@@ -36,10 +38,7 @@ union Body {
 }
 
 table Message {
-    // Transmission timestamp. This is the time that the message was sent from
-    // the gateway as nanoseconds since Unix epoch.
-    tts: long (id: 0);
-    // Message body.
+    tts: int64 (id: 0);
     body: Body (id: 2);
 }
 

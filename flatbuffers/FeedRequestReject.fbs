@@ -13,14 +13,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// See https://developer.reactivemarkets.com/api for documentation.
+
 // {{namespace}}
 
-// The FeedRequestReject is sent by the server when a FeedRequest cannot be
-// satisfied for business, operational, or technical reasons.
 table FeedRequestReject {
     req_id: string (id: 0);
-    // Error code indicating the reject reason.
-    error_code: int (id: 1);
-    // Textual error message describing the reject reason.
+    error_code: int32 (id: 1);
     error_message: string (id: 2);
 }

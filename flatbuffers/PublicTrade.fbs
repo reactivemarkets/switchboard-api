@@ -13,35 +13,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// See https://developer.reactivemarkets.com/api for documentation.
+
 include "Enum.fbs";
 
 // {{namespace}}
 
-// Public trade information.
 table PublicTrade {
-    // Source system timestamp as nanoseconds since Unix epoch.
     source_ts: int64 (id: 0);
-    // Source system identifier.
     source: string (id: 1);
-    // Market symbol.
     market: string (id: 2, required);
-    // Feed identifier.
     feed_id: int32 (id: 3);
-    // Optional identifier or sequence number assigned by the execution venue.
     trade_id: string (id: 4);
-    // Bitset describing the attributes of the market or update.
     flags: uint16 = 0 (id: 5);
-    // Trade direction. This field is always from the taker's perspective:
-    // - Buy: aggressor/taker bought;
-    // - Sell: aggressor/taker sold.
-    // The quantiy may be zero (None) if the underlying execution venue does not
-    // publish this information.
     side: Side (id: 6);
-    // Trade quantity. The quantiy may be zero if the underlying execution venue does not
-    // publish this information.
     qty: float64 (id: 7);
-    // Trade price.
     price: float64 (id: 8);
-    // Underyling execution venue.
     exec_venue: string (id: 9);
 }

@@ -7,7 +7,7 @@ application messages trasmitted over WebSockets.
 Flatbuffers provides an efficient serialisation/deserialisaton mechanism in terms of both processing
 and space requirements.
 
-See our [Developer Docs](https://reactivemarkets.github.io/developer/) for full documentation.
+See our [Developer Docs](https://developer.reactivemarkets.com) for full documentation.
 
 ## Getting Started
 

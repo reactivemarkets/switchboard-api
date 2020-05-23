@@ -13,27 +13,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// See https://developer.reactivemarkets.com/api for documentation.
+
 // {{namespace}}
 
-// An enumerated list of feed types, which may include different kinds of
-// aggregation, liquidity views, public trade feeds, trading signals, and other
-// analytics.
 enum FeedType: int16 {
     Default = 0,
     Trade = 1
 }
 
-// Buy or sell side of the market.
 enum Side: int8 {
     Sell = -1,
     None = 0,
     Buy = 1
 }
 
-// Subscription request type.
 enum SubReqType: int8 {
-    // Subscribe to one or more market feeds.
     Subscribe = 1,
-    // Unsubscribe from one or more market feeds.
     Unsubscribe
 }

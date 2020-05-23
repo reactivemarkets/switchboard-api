@@ -13,16 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// See https://developer.reactivemarkets.com/api for documentation.
+
 include "Enum.fbs";
 
 // {{namespace}}
 
-// The FeedRequestAccept is sent by the server to acknowledge a successful
-// FeedRequest.
 table FeedRequestAccept {
-    // Request identifier assigned by the client.
-    // Only the first 48 characters are significant.
     req_id: string (id: 0);
-    // Feed identifier.
     feed_id: int32 (id: 1);
 }
