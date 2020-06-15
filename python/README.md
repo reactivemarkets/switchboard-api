@@ -1,3 +1,3 @@
-# Reactive papi python
+# Reactive PAPI Python
 
-Reactive Platform flatbuffer python generated package.
+Reactive Platform flatbuffer Python generated package.

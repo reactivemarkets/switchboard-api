@@ -51,5 +51,7 @@ page](https://github.com/reactivemarkets/platform-api/releases).
 
 ## License
 
-This project is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0).
-A copy of the license is available in the [LICENSE](LICENSE) file.
+This project is Licensed under the
+[Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+(the "License") modified with [Commons Clause Restriction](https://commonsclause.com).
+See the [LICENSE](LICENSE) file for details.
