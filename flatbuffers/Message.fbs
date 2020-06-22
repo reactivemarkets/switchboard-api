@@ -33,10 +33,10 @@ union Body {
     FeedRequest,
     FeedRequestAccept,
     FeedRequestReject,
-    LiquidationOrder,
     MDSnapshotL2,
     PublicTrade,
-    SessionStatus
+    SessionStatus,
+    LiquidationOrder
 }
 
 table Message {
