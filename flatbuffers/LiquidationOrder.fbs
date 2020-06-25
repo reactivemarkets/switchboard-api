@@ -29,4 +29,5 @@ table LiquidationOrder {
     side: Side (id: 6);
     qty: double (id: 7);
     price: double (id: 8);
+    exec_venue: string (id: 9);
 }
