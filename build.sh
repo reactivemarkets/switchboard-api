@@ -51,4 +51,4 @@ generate csharp ReactiveMarkets.Switchboard
 generate go papi
 generate java com.reactivemarkets.papi
 generate python reactive.papi
-generate ts Switchboard
+generate ts Switchboard --short-names --no-fb-import
