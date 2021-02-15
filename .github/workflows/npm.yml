@@ -31,14 +31,18 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm ci
+        working-directory: ./js
       - name: Build
         run: |
           npm run build
+        working-directory: ./js
       - name: Version
         run: |
           npm --no-git-tag-version version ${GITHUB_REF##*/v}
+        working-directory: ./js
       - name: Publish packages
         run: |
           npm publish
+        working-directory: ./js
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

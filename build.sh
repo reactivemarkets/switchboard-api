@@ -47,8 +47,8 @@ generate()
 }
 
 generate cpp reactive.papi --no-prefix --scoped-enums
-generate csharp ReactiveMarkets.PlatformApi
+generate csharp ReactiveMarkets.Switchboard
 generate go papi
 generate java com.reactivemarkets.papi
 generate python reactive.papi
-generate ts PlatformApi --short-names --no-fb-import
+generate ts Switchboard
