@@ -1,0 +1,42 @@
+// Copyright © 2022 Reactive Markets. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// See https://developer.reactivemarkets.com for documentation.
+
+include "Enum.fbs";
+
+namespace ReactiveMarkets;
+
+/// The Order Cancel Request message is sent by the taker to cancel the 
+/// remaining quantity on a resting order.
+///
+/// The Order Cancel Request message only applies to resting orders.
+table OrderCancelRequest {
+    /// Trading account.
+    account: string (required);
+    /// Instrument symbol
+    symbol: string (required);
+    /// Exchange or venue symbol.
+    venue: string (required);
+    /// Request identifier assigned by the client.
+    cl_ord_id: string (required);
+    /// The order identifier assigned by the trading system.
+    order_id: string;
+    /// The cl_ord_id specified on the most recent order revision.
+    orig_cl_ord_id: string;
+    /// Order side.
+    side: Side;
+    /// Order quantity.
+    order_qty: double;
+}

@@ -1,5 +1,4 @@
-// -*- mode: idl; fill-column: 80; -*-
-// Copyright (C) 2020 Reactive Markets Limited
+// Copyright © 2022 Reactive Markets. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,36 +11,48 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
+// See https://developer.reactivemarkets.com for documentation.
 
-// See https://developer.reactivemarkets.com/api for documentation.
+include "BusinessMessageReject.fbs";
+include "ExecutionReport.fbs";
+include "Heartbeat.fbs";
+include "MarketDataRequest.fbs";
+include "MarketDataRequestReject.fbs";
+include "MarketDataSnapshot.fbs";
+include "NewOrderSingle.fbs";
+include "OrderCancelReject.fbs";
+include "OrderCancelRequest.fbs";
+include "OrderReplaceRequest.fbs";
+include "Reject.fbs";
+include "TestRequest.fbs";
 
-include "FeedRequest.fbs";
-include "FeedRequestAccept.fbs";
-include "FeedRequestReject.fbs";
-include "LiquidationOrder.fbs";
-include "MDSnapshotL2.fbs";
-include "PublicTrade.fbs";
-include "SessionStatus.fbs";
+// Reactive Markets Switchboard (RMS).
+file_identifier "RMS1";
+file_extension "rms";
 
-// Reactive Markets Platform (RMP).
-file_identifier "RMP1";
-file_extension "rmp";
-
-// {{namespace}}
+namespace ReactiveMarkets;
 
 union Body {
-    FeedRequest,
-    FeedRequestAccept,
-    FeedRequestReject,
-    MDSnapshotL2,
-    PublicTrade,
-    SessionStatus,
-    LiquidationOrder
+    BusinessMessageReject,
+    ExecutionReport,
+    Heartbeat,
+    MarketDataRequest,
+    MarketDataRequestReject,
+    MarketDataSnapshot,
+    NewOrderSingle,
+    OrderCancelReject,
+    OrderCancelRequest,
+    OrderReplaceRequest,
+    Reject,
+    TestRequest
 }
 
 table Message {
-    tts: int64 (id: 0);
-    body: Body (id: 2);
+    /// Time of message transmission in UTC.
+    sending_time: long;
+    /// Message body.
+    body: Body;
 }
 
 root_type Message;
