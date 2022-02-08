@@ -1,5 +1,4 @@
-// -*- mode: idl; fill-column: 80; -*-
-// Copyright (C) 2020 Reactive Markets Limited
+// Copyright © 2022 Reactive Markets. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,19 +11,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
+// See https://developer.reactivemarkets.com for documentation.
 
-// See https://developer.reactivemarkets.com/api for documentation.
+namespace ReactiveMarkets;
 
-include "Enum.fbs";
-
-// {{namespace}}
-
-table FeedRequest {
-    req_id: string (id: 0);
-    sub_req_type: SubReqType = 1 (id: 1);
-    feed_type: FeedType (id: 2);
-    grouping: uint16 (id: 3);
-    depth: int16 (id: 4);
-    frequency: int16 (id: 5);
-    markets: [string] (id: 6);
+table MarketDataRequestReject {
+    /// Request identifier specified on the Market Data Request.
+    req_id: string (required);
+    /// Code to identify reason for rejecting the Market Data Request.
+    code: int;
+    /// Supplementary information relating to the reject.
+    text: string;
 }

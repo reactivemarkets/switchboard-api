@@ -1,0 +1,55 @@
+// Copyright © 2022 Reactive Markets. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// See https://developer.reactivemarkets.com for documentation.
+
+include "Enum.fbs";
+
+namespace ReactiveMarkets;
+
+table StrategyParameter {
+    /// Name of parameter
+    name: string;
+    /// Datatype of the parameter.
+    type: StrategyParameterType;
+    /// Value of the parameter.
+    value: string;
+}
+
+/// The New Order Single message is sent by the taker to create a new order for execution.
+/// The maker is expected to respond immediately with a Execution Report message under normal conditions.
+table NewOrderSingle {
+    /// Trading account.
+    account: string (required);
+    /// Instrument symbol
+    symbol: string (required);
+    /// Exchange or venue symbol.
+    venue: string (required);
+    /// Request identifier assigned by the client (Max 48 characters).
+    cl_ord_id: string (required);
+    /// Order side.
+    side: Side;
+    /// See OrderType
+    order_type: OrderType;
+    /// See TimeInForce
+    time_in_force: TimeInForce;
+    /// Order quantity. MUST be greater than zero.
+    qty: double;
+    /// Order price.
+    price: double;
+    /// Quote Indentifier.
+    quote_id: string;
+    /// Strategy Parameters
+    parameters: [StrategyParameter];
+}

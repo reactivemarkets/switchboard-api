@@ -1,5 +1,4 @@
-// -*- mode: idl; fill-column: 80; -*-
-// Copyright (C) 2020 Reactive Markets Limited
+// Copyright © 2022 Reactive Markets. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,24 +11,115 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
+// See https://developer.reactivemarkets.com for documentation.
 
-// See https://developer.reactivemarkets.com/api for documentation.
+namespace ReactiveMarkets;
 
-// {{namespace}}
-
-enum FeedType: int16 {
-    Default = 0,
-    Trade = 1,
-    Liquidation = 2
+enum ExecType: int16 {
+    None = 0,
+    // New order execution type.
+    New,
+    // Revise order execution type.
+    Revised,
+    // Cancel order execution type.
+    Cancelled,
+    // Trade execution type.
+    Trade,
+    // Reject execution type.
+    Rejected,
+    // Stopped execution type.
+    Stopped,
+    // Expired execution type.
+    Expired,
+    // Pending new execution type.
+    PendingNew,
+    // Pending revise execution type.
+    PendingRevise,
+    // Pending cancel execution type.
+    PendingCancel,
+    // Pending suspend execution type
+    PendingSuspend,
+    // Suspended execution type
+    Suspended,
+    // Pending resume execution type
+    PendingResume,
+    // Order status execution type,
+    OrderStatus
 }
 
-enum Side: int8 {
+// An enumerated list of instrument types.
+enum InstrType: int16 {
+    None = 0,
+    SpotFwd,
+    Future,
+    CFD,
+    Swap
+}
+
+enum LiqInd: int16 {
+    // No liquidity indicator.
+    None = 0,
+    // Passive buyer or seller that receives the spread.
+    Maker,
+    // Aggressive buyer or seller that crosses the market and pays the spread.
+    Taker
+}
+
+enum OrderType: int16 {
+    None = 0,
+    Limit,
+    Market
+}
+
+enum QuoteType: int16 {
+    None = 0,
+    OrderBook = 4,
+    SweepableStack = 5,
+    FullAmountStack = 6,
+    FullAmountLadder = 7
+}
+
+// An enumerated list of settlement types.
+enum SettlType: int16 {
+    None = 0,
+    // Physical settlement.
+    Physical,
+    // Cash settlement.
+    Cash
+}
+
+// Buy or sell side of the market.
+enum Side: int16 {
     Sell = -1,
     None = 0,
     Buy = 1
 }
 
-enum SubReqType: int8 {
+enum StrategyParameterType: int16 {
+    None = 0,
+    Int = 1,
+    Float = 6,
+    Qty = 7,
+    Price = 8,
+    Char = 12,
+    Boolean = 13,
+    String = 14,
+    UTCTimeStamp = 19,
+    UTCTimeOnly = 20,
+    UTCDate = 22
+}
+
+enum SubReqType: int16 {
+    Snapshot = 0,
     Subscribe = 1,
-    Unsubscribe
+    Unsubscribe = 2
+}
+
+enum TimeInForce: int16 {
+    None = 0,
+    GTC = 1,
+    IOC = 2,
+    FOK = 3,
+    GFD,
 }

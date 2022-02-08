@@ -1,43 +1,40 @@
 # Reactive Switchboard API
 
-The Switchboard network provides a API for subscribing to streaming market-data over WebSockets.
+The Switchboard network provides a FIX API, REST API, and a WebSocket API.
 
-The API uses [Google Flatbuffers](https://google.github.io/flatbuffers/) to binary-encode
-application messages trasmitted over WebSockets.
+## FIX API
+
+Please contact support@reactivemarkets.com for the latest FIX specification.
+
+## REST API
+
+See the [openapi](openapi/) directory for the latest OpenAPI 3.0 definition of our REST API.
+
+See our [Developer Docs](https://developer.reactivemarkets.com) for full documentation.
+
+## WebSocket API
+
+The WebSocket API uses [Google Flatbuffers](https://google.github.io/flatbuffers/) to binary-encode application messages trasmitted over WebSockets.
 Flatbuffers provides an efficient serialisation/deserialisaton mechanism in terms of both processing
 and space requirements.
 
 See our [Developer Docs](https://developer.reactivemarkets.com) for full documentation.
 
-## Getting Started
-
-Generated code for the following languages is available on the
-[latest](https://github.com/reactivemarkets/switchboard-api/tree/latest) branch and
-[releases](https://github.com/reactivemarkets/switchboard-api/releases):
-
-- C++
-- C#
-- Go
-- Java
-- Python
-- TypeScript
+### Getting Started
 
 The Flatbuffers schema files are located in the [flatbuffers](flatbuffers/) directory.
 
-Code can be generated for additional languages supported by Flatbuffers using the `flatc` compiler:
+Code can be generated for all languages supported by Flatbuffers using the `flatc` compiler:
 
 ```bash
-$ flatc --rust *.fbs
+$ flatc --rust flatbuffers/*.fbs
 ```
 
-### Installing
+If you don't want to install flatc, you can use a docker container as a build tool.
 
-Build artefacts are available for several languages:
-
-- Go: `go get github.com/reactivemarkets/platform-api@latest`
-- Java: [Maven Package](https://search.maven.org/artifact/com.reactivemarkets/papi)
-- Python: [PyPi Package](https://pypi.org/project/reactive-papi)
-- JavaScript: [NPM Package](https://www.npmjs.com/package/@reactivemarkets/switchboard-api)
+```bash
+docker run --rm -v $(pwd):/api neomantra/flatbuffers:v1.12.0 bash -c "flatc --rust -o /api/build/rust /api/flatbuffers/*.fbs"
+```
 
 ## Contributing
 
