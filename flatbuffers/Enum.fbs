@@ -14,7 +14,7 @@
 //
 // See https://developer.reactivemarkets.com for documentation.
 
-namespace ReactiveMarkets;
+namespace Switchboard;
 
 enum ExecType: int16 {
     None = 0,

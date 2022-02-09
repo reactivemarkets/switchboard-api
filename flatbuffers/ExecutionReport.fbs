@@ -16,7 +16,7 @@
 
 include "Enum.fbs";
 
-namespace ReactiveMarkets;
+namespace Switchboard;
 
 table ExecutionReport {
     /// The time that the order is valid from.

@@ -20,7 +20,7 @@ generate-cpp:
 .PHONY: generate-go
 generate-go:
 	@echo "Generating go files..."
-	@flatc --go -o ${DEST}/go ${SRC}
+	@flatc --go --go-namespace switchboard -o ${DEST}/go ${SRC}
 
 .PHONY: generate-python
 generate-python:

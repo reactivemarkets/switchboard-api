@@ -14,7 +14,7 @@
 //
 // See https://developer.reactivemarkets.com for documentation.
 
-namespace ReactiveMarkets;
+namespace Switchboard;
 
 /// The Business Message Reject message can reject an application-level
 /// message which fulfills session-level rules, but cannot be rejected via any

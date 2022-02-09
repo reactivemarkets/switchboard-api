@@ -16,7 +16,7 @@
 
 include "Enum.fbs";
 
-namespace ReactiveMarkets;
+namespace Switchboard;
 
 struct MDEntry {
     // Bitset describing conditions of the quote.

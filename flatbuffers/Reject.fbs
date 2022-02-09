@@ -14,7 +14,7 @@
 //
 // See https://developer.reactivemarkets.com for documentation.
 
-namespace ReactiveMarkets;
+namespace Switchboard;
 
 /// The Reject message is sent when a message is badly formed, has missing
 /// tags, or does not pass basic validation. The Reject message may be sent 

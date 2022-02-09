@@ -16,7 +16,7 @@
 
 include "Enum.fbs";
 
-namespace ReactiveMarkets;
+namespace Switchboard;
 
 table Market {
     /// Instrument symbol.

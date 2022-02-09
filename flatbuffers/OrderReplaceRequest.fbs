@@ -16,7 +16,7 @@
 
 include "Enum.fbs";
 
-namespace ReactiveMarkets;
+namespace Switchboard;
 
 /// The Order Replace Request message is sent by the taker to revise the 
 /// quantity or price of a resting order.

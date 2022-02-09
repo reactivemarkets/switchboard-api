@@ -14,7 +14,7 @@
 //
 // See https://developer.reactivemarkets.com for documentation.
 
-namespace ReactiveMarkets;
+namespace Switchboard;
 
 /// The Heartbeat message is used to ensure that sessions remain active and to
 /// test the session status.
