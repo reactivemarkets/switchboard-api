@@ -16,7 +16,7 @@
 
 include "Enum.fbs";
 
-namespace ReactiveMarkets;
+namespace Switchboard;
 
 /// The Order Cancel Reject message is sent by the maker in response to a
 /// Order Cancel Request or an Order Cancel / Replace Request message that

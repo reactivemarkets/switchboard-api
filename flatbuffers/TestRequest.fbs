@@ -14,7 +14,7 @@
 //
 // See https://developer.reactivemarkets.com for documentation.
 
-namespace ReactiveMarkets;
+namespace Switchboard;
 
 /// The Test Request message forces a Heartbeat message from the opposing 
 /// application. The Test Request message may be sent by either side.

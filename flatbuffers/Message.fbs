@@ -31,7 +31,7 @@ include "TestRequest.fbs";
 file_identifier "RMS1";
 file_extension "rms";
 
-namespace ReactiveMarkets;
+namespace Switchboard;
 
 union Body {
     BusinessMessageReject,
