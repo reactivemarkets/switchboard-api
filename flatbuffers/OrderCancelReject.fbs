@@ -34,10 +34,10 @@ table OrderCancelReject {
     cl_ord_id: string;
     /// The cl_ord_id specified on the most recent order revision.
     orig_cl_ord_id: string;
-    /// Order side.
-    side: Side;
     /// Order quantity.
-    order_qty: double;
+    qty: double;
+    /// Order price.
+    price: double;
     /// See Error Mapping.
     code: int;
     /// Free format text string.
