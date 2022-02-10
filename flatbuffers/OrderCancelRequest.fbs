@@ -35,8 +35,4 @@ table OrderCancelRequest {
     order_id: string;
     /// The cl_ord_id specified on the most recent order revision.
     orig_cl_ord_id: string;
-    /// Order side.
-    side: Side;
-    /// Order quantity.
-    order_qty: double;
 }
