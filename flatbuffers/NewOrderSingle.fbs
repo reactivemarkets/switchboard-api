@@ -52,4 +52,6 @@ table NewOrderSingle {
     quote_id: string;
     /// Strategy Parameters
     parameters: [StrategyParameter];
+    /// Free text field for customer use. Max 128 characters.
+    text: string;
 }
