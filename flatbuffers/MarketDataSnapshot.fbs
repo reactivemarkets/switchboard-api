@@ -38,6 +38,8 @@ table MarketDataSnapshot {
     symbol: string (required);
     /// Exchange or venue symbol.
     venue: string (required);
+    /// Tenor symbol.
+    tenor: string;
     /// Quote identifier.
     quote_id: string;
     /// Quote or liquidity type.

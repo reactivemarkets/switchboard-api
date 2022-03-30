@@ -31,6 +31,8 @@ table ExecutionReport {
     symbol: string (required);
     /// Exchange or venue symbol.
     venue: string (required);
+    /// Tenor symbol.
+    tenor: string;
     /// Unique execution identifier.
     exec_id: string (required);
     /// Unique order identifier.

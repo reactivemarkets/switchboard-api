@@ -28,6 +28,8 @@ table OrderCancelReject {
     symbol: string (required);
     /// Exchange or venue symbol.
     venue: string (required);
+    /// Tenor symbol.
+    tenor: string;
     /// The order identifier assigned by the trading system.
     order_id: string (required);
     /// Request identifier assigned by the client.

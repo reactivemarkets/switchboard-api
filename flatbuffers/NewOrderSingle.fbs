@@ -36,6 +36,8 @@ table NewOrderSingle {
     symbol: string (required);
     /// Exchange or venue symbol.
     venue: string (required);
+    /// Tenor symbol. Defaults to SP.
+    tenor: string;
     /// Request identifier assigned by the client (Max 48 characters).
     cl_ord_id: string (required);
     /// Order side.

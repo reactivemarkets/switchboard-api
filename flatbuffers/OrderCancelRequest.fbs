@@ -29,6 +29,8 @@ table OrderCancelRequest {
     symbol: string (required);
     /// Exchange or venue symbol.
     venue: string (required);
+    /// Tenor symbol.
+    tenor: string;
     /// Request identifier assigned by the client.
     cl_ord_id: string (required);
     /// The order identifier assigned by the trading system.
