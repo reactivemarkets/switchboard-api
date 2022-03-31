@@ -18,6 +18,9 @@ include "Enum.fbs";
 
 namespace Switchboard;
 
+/// The Execution Report message is sent by the maker to communicate order
+/// updates. This includes initial order acknowledgement, rejects, trade
+/// executions, cancellations or any other status update.
 table ExecutionReport {
     /// The time that the order is valid from.
     effective_time: long;
@@ -41,12 +44,14 @@ table ExecutionReport {
     quote_id: string;
     /// Request identifier assigned by the client.
     cl_order_id: string;
-    // Adjacent enums for improved packing.
+    /// Order side.
     side: Side;
+    /// See OrderType
     order_type: OrderType = 1;
+    /// See TimeInForce
     time_in_force: TimeInForce;
+    /// See ExecType
     exec_type: ExecType;
-    // --
     /// Describes the current state of the order.
     order_status: string;
     /// Order quantity.
