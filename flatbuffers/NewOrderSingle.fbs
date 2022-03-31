@@ -39,7 +39,7 @@ table NewOrderSingle {
     /// Tenor symbol. Defaults to SP.
     tenor: string;
     /// Request identifier assigned by the client (Max 48 characters).
-    cl_ord_id: string (required);
+    cl_order_id: string (required);
     /// Order side.
     side: Side;
     /// See OrderType

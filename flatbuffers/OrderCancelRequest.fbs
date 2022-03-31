@@ -32,9 +32,9 @@ table OrderCancelRequest {
     /// Tenor symbol.
     tenor: string;
     /// Request identifier assigned by the client.
-    cl_ord_id: string (required);
+    cl_order_id: string (required);
     /// The order identifier assigned by the trading system.
     order_id: string;
-    /// The cl_ord_id specified on the most recent order revision.
-    orig_cl_ord_id: string;
+    /// The cl_order_id specified on the most recent order revision.
+    orig_cl_order_id: string;
 }

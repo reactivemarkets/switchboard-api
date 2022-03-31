@@ -48,15 +48,6 @@ enum ExecType: int16 {
     OrderStatus
 }
 
-// An enumerated list of instrument types.
-enum InstrType: int16 {
-    None = 0,
-    SpotFwd,
-    Future,
-    CFD,
-    Swap
-}
-
 enum LiqInd: int16 {
     // No liquidity indicator.
     None = 0,
@@ -68,8 +59,8 @@ enum LiqInd: int16 {
 
 enum OrderType: int16 {
     None = 0,
-    Limit,
-    Market
+    Market = 1,
+    Limit = 2
 }
 
 enum QuoteType: int16 {
@@ -78,15 +69,6 @@ enum QuoteType: int16 {
     SweepableStack = 5,
     FullAmountStack = 6,
     FullAmountLadder = 7
-}
-
-// An enumerated list of settlement types.
-enum SettlType: int16 {
-    None = 0,
-    // Physical settlement.
-    Physical,
-    // Cash settlement.
-    Cash
 }
 
 // Buy or sell side of the market.
@@ -118,8 +100,8 @@ enum SubReqType: int16 {
 
 enum TimeInForce: int16 {
     None = 0,
-    GTC = 1,
-    IOC = 2,
-    FOK = 3,
-    GFD,
+    GFD = 1,
+    GTC = 2,
+    IOC = 3,
+    FOK = 4,
 }
