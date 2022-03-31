@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Switchboard REST API",
-        "version": "0.188.0",
+        "version": "0.206.0",
         "contact": {
             "name": "Support",
             "url": "https://www.reactivemarkets.com/support",
@@ -10,6 +10,9 @@
         }
     },
     "servers": [{
+        "url": "https://api.uat.switchboard.reactivemarkets.com/v1",
+        "description": "UAT server"
+    }, {
         "url": "https://api.demo.switchboard.reactivemarkets.com/v1",
         "description": "Demo server"
     }, {
@@ -1948,6 +1951,697 @@
                 }
             }
         },
+        "/orgs/{organization}/accounts": {
+            "post": {
+                "summary": "Create an account",
+                "description": "Creates an account in an organization",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewAccount"
+                            }
+                        }
+                    }
+                },
+                "tags": ["Accounts"],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Account"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "List all accounts",
+                "description": "Lists all accounts in an organization, in the order that they were created.",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "tags": ["Accounts"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orgs/{organization}/accounts/{account}": {
+            "delete": {
+                "summary": "Delete an account",
+                "description": "Deletes an account in the given organization",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "account",
+                    "in": "path",
+                    "description": "the account symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "tags": ["Accounts"],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Retrieve an account",
+                "description": "Retrieves an account in the given organization",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "account",
+                    "in": "path",
+                    "description": "the account symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "tags": ["Accounts"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Account"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update an account",
+                "description": "Updates an existing account in an organization",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "account",
+                    "in": "path",
+                    "description": "the account symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AccountUpdate"
+                            }
+                        }
+                    }
+                },
+                "tags": ["Accounts"],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Account"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orgs/{organization}/onboarding/requests/{request}": {
+            "put": {
+                "summary": "Accept an onboarding request",
+                "description": "Accepts the specified onboarding request",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "request",
+                    "in": "path",
+                    "description": "the request symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "tags": ["Onboarding"],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Decline an onboarding request",
+                "description": "Declines an onboarding request for an organization",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "request",
+                    "in": "path",
+                    "description": "the request symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "tags": ["Onboarding"],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Retrieve an onboarding request",
+                "description": "Retrieves an onboarding request in a given organization",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "request",
+                    "in": "path",
+                    "description": "the request symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "tags": ["Onboarding"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OnboardingRequest"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orgs/{organization}/onboarding/requests": {
+            "post": {
+                "summary": "Create an onboarding request",
+                "description": "Creates an onboarding request in an organization",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewOnboardingRequest"
+                            }
+                        }
+                    }
+                },
+                "tags": ["Onboarding"],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OnboardingRequest"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "List all onboarding requests",
+                "description": "Lists all onboarding requests in an organization, in the order that they were created.",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "tags": ["Onboarding"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OnboardingRequest"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orgs/{organization}/onboarding/declined_requests": {
+            "get": {
+                "summary": "List all declined onboarding requests",
+                "description": "Lists all declined onboarding requests in an organization, in the order that they were created.",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "tags": ["Onboarding"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OnboardingRequest"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orgs/{organization}/streams": {
+            "post": {
+                "summary": "Create a stream",
+                "description": "Creates a stream in an organization",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewStream"
+                            }
+                        }
+                    }
+                },
+                "tags": ["Streams"],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Stream"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "List all streams",
+                "description": "Lists all streams in an organizations, in the order that they were created.",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "tags": ["Streams"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Stream"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orgs/{organization}/streams/{stream}": {
+            "delete": {
+                "summary": "Delete a stream",
+                "description": "Deletes a stream in the given organization",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "stream",
+                    "in": "path",
+                    "description": "the stream symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "tags": ["Streams"],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Retrieve a stream",
+                "description": "Retrieves a stream in the given organization",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "stream",
+                    "in": "path",
+                    "description": "the stream symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "tags": ["Streams"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Stream"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update a stream",
+                "description": "Updates an existing stream in an organization",
+                "parameters": [{
+                    "name": "organization",
+                    "in": "path",
+                    "description": "the organization symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "stream",
+                    "in": "path",
+                    "description": "the stream symbol",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StreamUpdate"
+                            }
+                        }
+                    }
+                },
+                "tags": ["Streams"],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Stream"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized: Authorization information is missing or invalid.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/grants": {
             "get": {
                 "summary": "List all grants",
@@ -2472,6 +3166,39 @@
             }
         },
         "schemas": {
+            "Account": {
+                "properties": {
+                    "created_ts": {
+                        "type": "number"
+                    },
+                    "display": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "prime_broker": {
+                        "type": "string"
+                    },
+                    "symbol": {
+                        "type": "string"
+                    }
+                },
+                "required": ["created_ts", "symbol"]
+            },
+            "AccountUpdate": {
+                "properties": {
+                    "display": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "prime_broker": {
+                        "type": "string"
+                    }
+                }
+            },
             "Audit": {
                 "properties": {
                     "id": {
@@ -2573,6 +3300,34 @@
                 },
                 "required": ["action", "attributes", "resource", "role"]
             },
+            "NewAccount": {
+                "properties": {
+                    "display": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "prime_broker": {
+                        "type": "string"
+                    },
+                    "symbol": {
+                        "type": "string"
+                    }
+                },
+                "required": ["symbol"]
+            },
+            "NewOnboardingRequest": {
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": ["name"]
+            },
             "NewOrder": {
                 "properties": {
                     "cl_order_id": {
@@ -2627,6 +3382,17 @@
                         "type": "string"
                     }
                 }
+            },
+            "NewStream": {
+                "properties": {
+                    "display": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                },
+                "required": ["display"]
             },
             "NewTeam": {
                 "properties": {
@@ -2751,6 +3517,69 @@
                 },
                 "required": ["tts"]
             },
+            "OnboardingRequest": {
+                "properties": {
+                    "accepted": {
+                        "type": "boolean"
+                    },
+                    "accepted_ts": {
+                        "type": "number"
+                    },
+                    "created_ts": {
+                        "type": "number"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "symbol": {
+                        "type": "string"
+                    }
+                },
+                "required": ["created_ts", "name", "symbol"]
+            },
+            "Order": {
+                "properties": {
+                    "created_ts": {
+                        "type": "number"
+                    },
+                    "qty": {
+                        "type": "number"
+                    },
+                    "market": {
+                        "type": "string"
+                    },
+                    "accnt": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "type": "string"
+                    }
+                },
+                "required": ["created_ts", "symbol"]
+            },
+            "OrderUpdate": {
+                "properties": {
+                    "created_ts": {
+                        "type": "number"
+                    },
+                    "qty": {
+                        "type": "number"
+                    },
+                    "market": {
+                        "type": "string"
+                    },
+                    "accnt": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "type": "string"
+                    }
+                },
+                "required": ["created_ts", "symbol"]
+            },
             "Organization": {
                 "properties": {
                     "description": {
@@ -2793,6 +3622,22 @@
                     }
                 }
             },
+            "Print": {
+                "properties": {
+                    "tts": {
+                        "type": "number"
+                    },
+                    "qty": {
+                        "type": "number"
+                    },
+                    "market": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    }
+                }
+            },
             "Resource": {
                 "properties": {
                     "display": {
@@ -2831,6 +3676,33 @@
                     }
                 }
             },
+            "Stream": {
+                "properties": {
+                    "created_ts": {
+                        "type": "number"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "display": {
+                        "type": "string"
+                    },
+                    "symbol": {
+                        "type": "string"
+                    }
+                },
+                "required": ["created_ts", "display", "symbol"]
+            },
+            "StreamUpdate": {
+                "properties": {
+                    "display": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
             "Team": {
                 "properties": {
                     "description": {
@@ -2854,6 +3726,26 @@
                         "type": "string"
                     }
                 }
+            },
+            "Trade": {
+                "properties": {
+                    "created_ts": {
+                        "type": "number"
+                    },
+                    "qty": {
+                        "type": "number"
+                    },
+                    "market": {
+                        "type": "string"
+                    },
+                    "accnt": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "type": "string"
+                    }
+                },
+                "required": ["created_ts", "symbol"]
             },
             "User": {
                 "properties": {
