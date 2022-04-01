@@ -18,34 +18,14 @@ namespace Switchboard;
 
 enum ExecType: int16 {
     None = 0,
-    // New order execution type.
     New,
-    // Revise order execution type.
-    Revised,
-    // Cancel order execution type.
     Cancelled,
-    // Trade execution type.
-    Trade,
-    // Reject execution type.
-    Rejected,
-    // Stopped execution type.
-    Stopped,
-    // Expired execution type.
-    Expired,
-    // Pending new execution type.
-    PendingNew,
-    // Pending revise execution type.
-    PendingRevise,
-    // Pending cancel execution type.
+    Replaced,
     PendingCancel,
-    // Pending suspend execution type
-    PendingSuspend,
-    // Suspended execution type
-    Suspended,
-    // Pending resume execution type
-    PendingResume,
-    // Order status execution type,
-    OrderStatus
+    Rejected,
+    PendingNew,
+    PendingReplace,
+    Trade
 }
 
 enum LiqInd: int16 {
@@ -57,10 +37,21 @@ enum LiqInd: int16 {
     Taker
 }
 
+enum OrderStatus: int16 {
+    None = 0,
+    New,
+    PartiallyFilled,
+    Filled,
+    Canceled,
+    Rejected,
+    PendingNew
+}
+
 enum OrderType: int16 {
     None = 0,
-    Market = 1,
-    Limit = 2
+    Market,
+    Limit,
+    PreviouslyQuoted
 }
 
 enum QuoteType: int16 {
