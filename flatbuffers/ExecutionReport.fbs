@@ -46,19 +46,19 @@ table ExecutionReport {
     cl_order_id: string;
     /// Order side.
     side: Side;
-    /// See OrderType
-    order_type: OrderType = 1;
-    /// See TimeInForce
+    /// See OrderType.
+    order_type: OrderType;
+    /// See TimeInForce.
     time_in_force: TimeInForce;
-    /// See ExecType
+    /// See ExecType.
     exec_type: ExecType;
     /// Describes the current state of the order.
-    order_status: string;
+    order_status: OrderStatus;
     /// Order quantity.
     qty: double;
     /// Order price.
     price: double;
-    /// Remaining order quantiy.
+    /// Remaining order quantity.
     leaves_qty: double;
     /// Total quantity executed by order fills.
     cum_qty: double;
@@ -76,7 +76,7 @@ table ExecutionReport {
     exec_venue: string;
     /// Counter-party on the other side of the trade.
     counterparty: string;
-    /// Optional code to identify the order reject reason when ExecType Rejected
+    /// Optional code to identify the order reject reason when ExecType Rejected.
     error_code: int;
     /// Supplementary information, primarily used for rejects.
     text: string;
