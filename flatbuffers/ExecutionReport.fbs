@@ -68,8 +68,8 @@ table ExecutionReport {
     last_qty: double;
     /// Last trade price.
     last_price: double;
-    /// The settlement date at the time of transaction.
-    settlement_date: int;
+    /// The settlement date at the time of transaction in YYYYMMDD format.
+    settlement_date: string;
     /// Liquidity indicator.
     liq_ind: LiqInd;
     /// Underyling execution venue.
