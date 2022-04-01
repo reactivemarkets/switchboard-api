@@ -21,9 +21,9 @@ namespace Switchboard;
 struct MDEntry {
     // Bitset describing conditions of the quote.
     conditions: uint16;
-    /// Size of the MDEntry
+    /// Size of the MDEntry.
     size: double;
-    /// Price of the MDEntry
+    /// Price of the MDEntry.
     price: double;
 }
 
