@@ -50,6 +50,8 @@ table NewOrderSingle {
     qty: double;
     /// Order price.
     price: double;
+    /// Order price tolerance.
+    price_tolerance: double;
     /// Quote Indentifier.
     quote_id: string;
     /// Strategy Parameters
