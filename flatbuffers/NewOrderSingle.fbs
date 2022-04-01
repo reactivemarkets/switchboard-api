@@ -20,11 +20,11 @@ namespace Switchboard;
 
 table StrategyParameter {
     /// Name of parameter
-    name: string;
+    name: string (required);
     /// Datatype of the parameter.
     type: StrategyParameterType;
     /// Value of the parameter.
-    value: string;
+    value: string (required);
 }
 
 /// The New Order Single message is sent by the taker to create a new order for execution.

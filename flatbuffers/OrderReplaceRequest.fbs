@@ -23,7 +23,7 @@ namespace Switchboard;
 table OrderReplaceRequest {
     /// Trading account.
     account: string (required);
-    /// Instrument symbol
+    /// Instrument symbol.
     symbol: string (required);
     /// Exchange or venue symbol.
     venue: string (required);
