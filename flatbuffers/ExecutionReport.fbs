@@ -58,6 +58,8 @@ table ExecutionReport {
     qty: double;
     /// Order price.
     price: double;
+    /// Order currency.
+    ccy: string;
     /// Remaining order quantity.
     leaves_qty: double;
     /// Total quantity executed by order fills.

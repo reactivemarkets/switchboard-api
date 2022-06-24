@@ -50,6 +50,8 @@ table NewOrderSingle {
     qty: double;
     /// Order price.
     price: double;
+    /// Order currency.
+    ccy: string;
     /// Order price tolerance.
     price_tolerance: double;
     /// Quote Indentifier.
