@@ -1,4053 +1,2599 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "title": "Switchboard REST API",
-      "version": "1.0.1",
-      "contact": {
-        "name": "Support",
-        "url": "https://www.reactivemarkets.com/support",
-        "email": "support@reactivemarkets.com"
-      }
-    },
-    "servers": [{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Switchboard REST API",
+    "version": "1.8.0",
+    "contact": {
+      "name": "Support",
+      "url": "https://www.reactivemarkets.com/support",
+      "email": "support@reactivemarkets.com"
+    }
+  },
+  "servers": [
+    {
       "url": "https://api.uat.switchboard.reactivemarkets.com/v1",
       "description": "UAT server"
-    }, {
+    },
+    {
       "url": "https://api.demo.switchboard.reactivemarkets.com/v1",
       "description": "Demo server"
-    }, {
+    },
+    {
       "url": "https://api.switchboard.reactivemarkets.com/v1",
       "description": "Production server"
-    }],
-    "paths": {
-      "/news/categories": {
-        "get": {
-          "summary": "List news categories",
-          "description": "Returns all news categories.",
-          "tags": ["News"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/NewsCategory"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/news/feeds/{symbol}/articles": {
-        "get": {
-          "summary": "List news feed articles",
-          "description": "Returns a list of news feed articles for the given symbol.",
-          "parameters": [{
-            "name": "symbol",
-            "in": "path",
-            "description": "The feed symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/EndingBeforeParameter"
-          }, {
-            "$ref": "#/components/parameters/StartingAfterParameter"
-          }, {
-            "$ref": "#/components/parameters/LimitParameter"
-          }],
-          "tags": ["News"],
-          "responses": {
-            "200": {
-              "description": "A JSON array of articles",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/NewsArticle"
-                    }
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Bad Request",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/news/feeds": {
-        "get": {
-          "summary": "List news feeds",
-          "description": "Returns all news feeds.",
-          "tags": ["News"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/NewsFeed"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/news/categories/{category}/feeds": {
-        "get": {
-          "summary": "List news feeds by category",
-          "description": "Returns all news feeds for the given category.",
-          "parameters": [{
-            "name": "symbol",
-            "in": "path",
-            "description": "The feed category.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["News"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/NewsFeed"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/news/categories/{symbol}": {
-        "get": {
-          "summary": "Retrieve a news category",
-          "description": "Retrieves a news category for the given symbol.",
-          "parameters": [{
-            "name": "symbol",
-            "in": "path",
-            "description": "The feed category.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["News"],
-          "responses": {
-            "200": {
-              "description": "Returns a news category object.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/NewsCategory"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/news/feeds/{symbol}": {
-        "get": {
-          "summary": "Retrieve a news feed",
-          "description": "Retrieves a news feed for the given symbol.",
-          "parameters": [{
-            "name": "symbol",
-            "in": "path",
-            "description": "The feed symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["News"],
-          "responses": {
-            "200": {
-              "description": "Returns a news feed object.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/NewsFeed"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/analytics/ohlc/{market}/{period}": {
-        "get": {
-          "summary": "List all OHLC for a market",
-          "description": "Retrieves the OHLC for a given market and period.",
-          "parameters": [{
+    }
+  ],
+  "paths": {
+    "/analytics/ohlc/{market}/{period}": {
+      "get": {
+        "summary": "List all OHLC for a market",
+        "description": "Retrieves the OHLC for a given market and period.",
+        "parameters": [
+          {
             "name": "market",
             "in": "path",
             "description": "The market symbol.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
+            "schema": { "type": "string" }
+          },
+          {
             "name": "period",
             "in": "path",
             "description": "A period for the OHLC. Valid values are 1s, 1m, 1w, 1d.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/EndingBeforeParameter"
-          }, {
-            "$ref": "#/components/parameters/StartingAfterParameter"
-          }, {
-            "$ref": "#/components/parameters/LimitParameter"
-          }],
-          "tags": ["Analytics"],
-          "responses": {
-            "200": {
-              "description": "A JSON array of ohlc",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Ohlc"
-                    }
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Bad Request",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/org/audit": {
-        "get": {
-          "summary": "List all audits",
-          "description": "Lists all audit points for the organization.",
-          "parameters": [{
-            "$ref": "#/components/parameters/EndingBeforeParameter"
-          }, {
-            "$ref": "#/components/parameters/StartingAfterParameter"
-          }, {
-            "$ref": "#/components/parameters/LimitParameter"
-          }],
-          "tags": ["Organization"],
-          "responses": {
-            "200": {
-              "description": "A JSON array of audit points",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Audit"
-                    }
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Bad Request",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/org/members": {
-        "get": {
-          "summary": "List all members",
-          "description": "Lists all members in the organization, in the order that they were added.",
-          "tags": ["Organization"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/User"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/org": {
-        "get": {
-          "summary": "Retrieve the organization",
-          "description": "Retrieves the organization for the current authenticated user.",
-          "tags": ["Organization"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Organization"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "patch": {
-          "summary": "Update the organization",
-          "description": "Updates the organization for the current authenticated user.",
-          "requestBody": {
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/EndingBeforeParameter" },
+          { "$ref": "#/components/parameters/StartingAfterParameter" },
+          { "$ref": "#/components/parameters/LimitParameter" }
+        ],
+        "tags": ["Analytics"],
+        "responses": {
+          "200": {
+            "description": "A JSON array of ohlc",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrganizationUpdate"
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Ohlc" }
                 }
               }
-            },
-            "required": true
+            }
           },
-          "tags": ["Organization"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Organization"
-                  }
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/org/audit": {
+      "get": {
+        "summary": "List all audits",
+        "description": "Lists all audit points for the organization.",
+        "parameters": [
+          { "$ref": "#/components/parameters/EndingBeforeParameter" },
+          { "$ref": "#/components/parameters/StartingAfterParameter" },
+          { "$ref": "#/components/parameters/LimitParameter" }
+        ],
+        "tags": ["Organization"],
+        "responses": {
+          "200": {
+            "description": "A JSON array of audit points",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Audit" }
                 }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/org/members": {
+      "get": {
+        "summary": "List all members",
+        "description": "Lists all members in the organization, in the order that they were added.",
+        "tags": ["Organization"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/User" }
                 }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/org": {
+      "get": {
+        "summary": "Retrieve the organization",
+        "description": "Retrieves the organization for the current authenticated user.",
+        "tags": ["Organization"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Organization" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
       },
-      "/reference/assets": {
-        "get": {
-          "summary": "List all assets",
-          "description": "List all assets.",
-          "parameters": [{
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Reference"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Asset"
-                    }
-                  }
-                }
+      "patch": {
+        "summary": "Update the organization",
+        "description": "Updates the organization for the current authenticated user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/OrganizationUpdate" }
+            }
+          },
+          "required": true
+        },
+        "tags": ["Organization"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Organization" }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/reference/instruments": {
-        "get": {
-          "summary": "List all instruments",
-          "description": "List all instruments.",
-          "parameters": [{
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Reference"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Instrument"
-                    }
-                  }
+      }
+    },
+    "/reference/assets": {
+      "get": {
+        "summary": "List all assets",
+        "description": "List all assets.",
+        "parameters": [{ "$ref": "#/components/parameters/ExpandParameter" }],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Asset" }
                 }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/reference/markets": {
-        "get": {
-          "summary": "List all markets",
-          "description": "List all markets.",
-          "parameters": [{
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Reference"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Market"
-                    }
-                  }
+      }
+    },
+    "/reference/instruments": {
+      "get": {
+        "summary": "List all instruments",
+        "description": "List all instruments.",
+        "parameters": [{ "$ref": "#/components/parameters/ExpandParameter" }],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Instrument" }
                 }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/reference/strategies": {
-        "get": {
-          "summary": "List all strategies",
-          "description": "List all strategies.",
-          "parameters": [{
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Reference"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Strategy"
-                    }
-                  }
+      }
+    },
+    "/reference/markets": {
+      "get": {
+        "summary": "List all markets",
+        "description": "List all markets.",
+        "parameters": [{ "$ref": "#/components/parameters/ExpandParameter" }],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Market" }
                 }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/reference/venues": {
-        "get": {
-          "summary": "List all venues",
-          "description": "List all venues.",
-          "parameters": [{
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Reference"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Venue"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/reference/assets/{symbol}": {
-        "get": {
-          "summary": "Retrieve an asset",
-          "description": "Retrieves an asset.",
-          "parameters": [{
-            "name": "symbol",
-            "in": "path",
-            "description": "A valid asset symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Reference"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Asset"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/reference/instruments/{symbol}": {
-        "get": {
-          "summary": "Retrieve an instrument",
-          "description": "Retrieves an instrument.",
-          "parameters": [{
-            "name": "symbol",
-            "in": "path",
-            "description": "A valid instrument symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Reference"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Instrument"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/reference/markets/{symbol}": {
-        "get": {
-          "summary": "Retrieve a market",
-          "description": "Retrieves a market.",
-          "parameters": [{
+      }
+    },
+    "/reference/markets/{symbol}/tenors": {
+      "get": {
+        "summary": "List all tenors",
+        "description": "List all tenors for a market.",
+        "parameters": [
+          {
             "name": "symbol",
             "in": "path",
             "description": "A valid market symbol.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Reference"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Market"
-                  }
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/ExpandParameter" }
+        ],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Tenor" }
                 }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/reference/strategies/{symbol}": {
-        "get": {
-          "summary": "Retrieve a strategy",
-          "description": "Retrieves an strategy.",
-          "parameters": [{
+      }
+    },
+    "/reference/strategies": {
+      "get": {
+        "summary": "List all strategies",
+        "description": "List all strategies.",
+        "parameters": [{ "$ref": "#/components/parameters/ExpandParameter" }],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Strategy" }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reference/tenors": {
+      "get": {
+        "summary": "List all tenors",
+        "description": "List all tenors in the system.",
+        "parameters": [{ "$ref": "#/components/parameters/ExpandParameter" }],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Tenor" }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reference/venues": {
+      "get": {
+        "summary": "List all venues",
+        "description": "List all venues.",
+        "parameters": [{ "$ref": "#/components/parameters/ExpandParameter" }],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Venue" }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reference/assets/{symbol}": {
+      "get": {
+        "summary": "Retrieve an asset",
+        "description": "Retrieves an asset.",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "A valid asset symbol.",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/ExpandParameter" }
+        ],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Asset" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reference/instruments/{symbol}": {
+      "get": {
+        "summary": "Retrieve an instrument",
+        "description": "Retrieves an instrument.",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "A valid instrument symbol.",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/ExpandParameter" }
+        ],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Instrument" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reference/markets/{symbol}": {
+      "get": {
+        "summary": "Retrieve a market",
+        "description": "Retrieves a market.",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "A valid market symbol.",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/ExpandParameter" }
+        ],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Market" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reference/strategies/{symbol}": {
+      "get": {
+        "summary": "Retrieve a strategy",
+        "description": "Retrieves an strategy.",
+        "parameters": [
+          {
             "name": "symbol",
             "in": "path",
             "description": "A valid strategy symbol.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Reference"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Strategy"
-                  }
-                }
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/ExpandParameter" }
+        ],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Strategy" }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/reference/venues/{symbol}": {
-        "get": {
-          "summary": "Retrieve a venue",
-          "description": "Retrieves a venue.",
-          "parameters": [{
+      }
+    },
+    "/reference/tenors/{symbol}": {
+      "get": {
+        "summary": "Retrieve a tenor",
+        "description": "Retrieves a tenor.",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "A valid tenor symbol.",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/ExpandParameter" }
+        ],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Tenor" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reference/venues/{symbol}": {
+      "get": {
+        "summary": "Retrieve a venue",
+        "description": "Retrieves a venue.",
+        "parameters": [
+          {
             "name": "symbol",
             "in": "path",
             "description": "A valid venue symbol.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Reference"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Venue"
-                  }
-                }
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/ExpandParameter" }
+        ],
+        "tags": ["Reference"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Venue" }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/user/accounts": {
-        "get": {
-          "summary": "List the user accounts",
-          "description": "Lists all accounts for the current authenticated user.",
-          "tags": ["User"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Account"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/user/activity": {
-        "get": {
-          "summary": "List the user activity",
-          "description": "List all activity for the current authenticated user.",
-          "parameters": [{
-            "$ref": "#/components/parameters/EndingBeforeParameter"
-          }, {
-            "$ref": "#/components/parameters/StartingAfterParameter"
-          }, {
-            "$ref": "#/components/parameters/LimitParameter"
-          }],
-          "tags": ["User"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/UserActivity"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/user/roles": {
-        "get": {
-          "summary": "List the user roles",
-          "description": "Lists all roles for the current authenticated user.",
-          "tags": ["User"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Role"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/user/teams": {
-        "get": {
-          "summary": "List the user teams",
-          "description": "Lists all teams for the current authenticated user.",
-          "tags": ["User"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Team"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/user": {
-        "get": {
-          "summary": "Retrieve the user",
-          "description": "Retrieves the current authenticated user.",
-          "parameters": [{
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["User"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "patch": {
-          "summary": "Update the user",
-          "description": "Updates the current authenticated user.",
-          "requestBody": {
+      }
+    },
+    "/user/accounts": {
+      "get": {
+        "summary": "List the user accounts",
+        "description": "Lists all accounts for the current authenticated user.",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserUpdate"
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Account" }
                 }
               }
-            },
-            "required": true
+            }
           },
-          "tags": ["User"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/users": {
-        "post": {
-          "summary": "Create a user",
-          "description": "Creates a user.",
-          "requestBody": {
+      }
+    },
+    "/user/activity": {
+      "get": {
+        "summary": "List the user activity",
+        "description": "List all activity for the current authenticated user.",
+        "parameters": [
+          { "$ref": "#/components/parameters/EndingBeforeParameter" },
+          { "$ref": "#/components/parameters/StartingAfterParameter" },
+          { "$ref": "#/components/parameters/LimitParameter" }
+        ],
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewUser"
-                }
-              }
-            },
-            "required": true
-          },
-          "tags": ["Users"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/UserActivity" }
                 }
               }
             }
-          }
-        },
-        "get": {
-          "summary": "List all users",
-          "description": "List all users.",
-          "parameters": [{
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Users"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/User"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/users/{user}": {
-        "delete": {
-          "summary": "Delete a user",
-          "description": "Deletes a user.",
-          "parameters": [{
-            "name": "user",
-            "in": "path",
-            "description": "The user id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Users"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "get": {
-          "summary": "Retrieve a user",
-          "description": "Retrieves a user.",
-          "parameters": [{
-            "name": "user",
-            "in": "path",
-            "description": "The user id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Users"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "patch": {
-          "summary": "Update a user",
-          "description": "Updates an existing user.",
-          "parameters": [{
-            "name": "user",
-            "in": "path",
-            "description": "The user id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "requestBody": {
+      }
+    },
+    "/user/roles": {
+      "get": {
+        "summary": "List the user roles",
+        "description": "Lists all roles for the current authenticated user.",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserUpdateAdmin"
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Role" }
                 }
               }
-            },
-            "required": true
+            }
           },
-          "tags": ["Users"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/users/{user}/accounts": {
-        "get": {
-          "summary": "List the users accounts",
-          "description": "Lists all accounts for the given user.",
-          "parameters": [{
-            "name": "user",
-            "in": "path",
-            "description": "The user id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Users"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Account"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/users/{user}/activity": {
-        "get": {
-          "summary": "List the users activity",
-          "description": "Lists all activity for the given user.",
-          "parameters": [{
-            "name": "user",
-            "in": "path",
-            "description": "The user id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/EndingBeforeParameter"
-          }, {
-            "$ref": "#/components/parameters/StartingAfterParameter"
-          }, {
-            "$ref": "#/components/parameters/LimitParameter"
-          }],
-          "tags": ["Users"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/UserActivity"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/users/{user}/roles": {
-        "get": {
-          "summary": "List the users roles",
-          "description": "Lists all roles for the given user.",
-          "parameters": [{
-            "name": "user",
-            "in": "path",
-            "description": "The user id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Users"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Role"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/users/{user}/teams": {
-        "get": {
-          "summary": "List the users teams",
-          "description": "Lists all teams for the given user.",
-          "parameters": [{
-            "name": "user",
-            "in": "path",
-            "description": "The user id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Users"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Team"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/users/{user}/suspended": {
-        "put": {
-          "summary": "Suspend a user",
-          "description": "Suspends a user.",
-          "parameters": [{
-            "name": "user",
-            "in": "path",
-            "description": "The user id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Users"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "delete": {
-          "summary": "Unsuspend a user",
-          "description": "Unsuspends a user.",
-          "parameters": [{
-            "name": "user",
-            "in": "path",
-            "description": "The user id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Users"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/orders": {
-        "delete": {
-          "summary": "Cancel all orders",
-          "description": "Cancels all orders for the existing user.",
-          "tags": ["Trading"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "post": {
-          "summary": "Create a new order",
-          "description": "Creates a new order.",
-          "requestBody": {
+      }
+    },
+    "/user/teams": {
+      "get": {
+        "summary": "List the user teams",
+        "description": "Lists all teams for the current authenticated user.",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewOrder"
-                }
-              }
-            },
-            "required": true
-          },
-          "tags": ["Trading"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/NewOrderResponse"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Team" }
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
           }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "Retrieve the user",
+        "description": "Retrieves the current authenticated user.",
+        "parameters": [{ "$ref": "#/components/parameters/ExpandParameter" }],
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update the user",
+        "description": "Updates the current authenticated user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UserUpdate" }
+            }
+          },
+          "required": true
         },
-        "get": {
-          "summary": "List all orders",
-          "description": "Lists all orders for the current user or accounts.",
-          "parameters": [{
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "delete": {
+        "summary": "Cancel all orders",
+        "description": "Cancels all orders for the existing user.",
+        "tags": ["Trading"],
+        "responses": {
+          "204": { "description": "No Content" },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new order",
+        "description": "Creates a new order.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/NewOrder" }
+            }
+          },
+          "required": true
+        },
+        "tags": ["Trading"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NewOrderResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List all orders",
+        "description": "Lists all orders for the current user or accounts.",
+        "parameters": [
+          {
             "name": "accounts",
             "in": "query",
             "description": "A comma separated list of accounts.",
             "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/EndingBeforeParameter"
-          }, {
-            "$ref": "#/components/parameters/StartingAfterParameter"
-          }, {
-            "$ref": "#/components/parameters/LimitParameter"
-          }, {
-            "$ref": "#/components/parameters/ReverseParameter"
-          }, {
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Trading"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Order"
-                    }
-                  }
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/EndingBeforeParameter" },
+          { "$ref": "#/components/parameters/StartingAfterParameter" },
+          { "$ref": "#/components/parameters/LimitParameter" },
+          { "$ref": "#/components/parameters/ReverseParameter" },
+          { "$ref": "#/components/parameters/ExpandParameter" }
+        ],
+        "tags": ["Trading"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Order" }
                 }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{market}/{order_id}": {
+      "delete": {
+        "summary": "Cancel an order",
+        "description": "Cancels an order for the existing user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CancelOrder" }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "description": "The market symbol.",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "order_id",
+            "in": "path",
+            "description": "The order id.",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "tags": ["Trading"],
+        "responses": {
+          "204": { "description": "No Content" },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
       },
-      "/orders/{market}/{order_id}": {
-        "delete": {
-          "summary": "Cancel an order",
-          "description": "Cancels an order for the existing user.",
-          "parameters": [{
-            "name": "market",
-            "in": "path",
-            "description": "The market symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "name": "order_id",
-            "in": "path",
-            "description": "The order id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Trading"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "get": {
-          "summary": "Retrieve an order",
-          "description": "Retrieves an order for the given market, order id for the current date.",
-          "parameters": [{
+      "get": {
+        "summary": "Retrieve an order",
+        "description": "Retrieves an order for the given market, order id for the current date.",
+        "parameters": [
+          {
             "name": "market",
             "in": "path",
             "description": "The market.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
+            "schema": { "type": "string" }
+          },
+          {
             "name": "order_id",
             "in": "path",
             "description": "The order id.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/EndingBeforeParameter"
-          }, {
-            "$ref": "#/components/parameters/StartingAfterParameter"
-          }, {
-            "$ref": "#/components/parameters/LimitParameter"
-          }, {
-            "$ref": "#/components/parameters/ReverseParameter"
-          }],
-          "tags": ["Trading"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Order"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "patch": {
-          "summary": "Revise an order",
-          "description": "Revise a previously placed order.",
-          "parameters": [{
-            "name": "market",
-            "in": "path",
-            "description": "The market symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "name": "order_id",
-            "in": "path",
-            "description": "The order id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "requestBody": {
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/EndingBeforeParameter" },
+          { "$ref": "#/components/parameters/StartingAfterParameter" },
+          { "$ref": "#/components/parameters/LimitParameter" },
+          { "$ref": "#/components/parameters/ReverseParameter" }
+        ],
+        "tags": ["Trading"],
+        "responses": {
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrderUpdate"
-                }
+                "schema": { "$ref": "#/components/schemas/Order" }
               }
-            },
-            "required": true
+            }
           },
-          "tags": ["Trading"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/OrderUpdateResponse"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
       },
-      "/orders/{date}/{market}/{order_id}": {
-        "get": {
-          "summary": "Retrieve an order by date",
-          "description": "Retrieves an order for the given market, order id, and creation date.",
-          "parameters": [{
+      "patch": {
+        "summary": "Revise an order",
+        "description": "Revise a previously placed order.",
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "description": "The market symbol.",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "order_id",
+            "in": "path",
+            "description": "The order id.",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/OrderUpdate" }
+            }
+          },
+          "required": true
+        },
+        "tags": ["Trading"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OrderUpdateResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{date}/{market}/{order_id}": {
+      "get": {
+        "summary": "Retrieve an order by date",
+        "description": "Retrieves an order for the given market, order id, and creation date.",
+        "parameters": [
+          {
             "name": "date",
             "in": "path",
             "description": "The order creation date in YYYYMMDD format.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
+            "schema": { "type": "string" }
+          },
+          {
             "name": "market",
             "in": "path",
             "description": "The market.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
+            "schema": { "type": "string" }
+          },
+          {
             "name": "order_id",
             "in": "path",
             "description": "The order id.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/EndingBeforeParameter"
-          }, {
-            "$ref": "#/components/parameters/StartingAfterParameter"
-          }, {
-            "$ref": "#/components/parameters/LimitParameter"
-          }, {
-            "$ref": "#/components/parameters/ReverseParameter"
-          }],
-          "tags": ["Trading"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Order"
-                  }
-                }
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/EndingBeforeParameter" },
+          { "$ref": "#/components/parameters/StartingAfterParameter" },
+          { "$ref": "#/components/parameters/LimitParameter" },
+          { "$ref": "#/components/parameters/ReverseParameter" }
+        ],
+        "tags": ["Trading"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Order" }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/trades": {
-        "get": {
-          "summary": "List all trades",
-          "description": "Lists all trades for the current user or accounts.",
-          "parameters": [{
+      }
+    },
+    "/trades": {
+      "get": {
+        "summary": "List all trades",
+        "description": "Lists all trades for the current user or accounts.",
+        "parameters": [
+          {
             "name": "accounts",
             "in": "query",
             "description": "A comma separated list of accounts",
             "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }, {
-            "$ref": "#/components/parameters/EndingBeforeParameter"
-          }, {
-            "$ref": "#/components/parameters/StartingAfterParameter"
-          }, {
-            "$ref": "#/components/parameters/LimitParameter"
-          }, {
-            "$ref": "#/components/parameters/ReverseParameter"
-          }, {
-            "$ref": "#/components/parameters/ExpandParameter"
-          }],
-          "tags": ["Trading"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Trade"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/org/require_mfa": {
-        "put": {
-          "summary": "Require MFA",
-          "description": "Requires all users in the organization have MFA enabled.",
-          "tags": ["Organization"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "delete": {
-          "summary": "Unrequire MFA",
-          "description": "Removes the MFA enforcement from the organization.",
-          "tags": ["Organization"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/org/teams": {
-        "post": {
-          "summary": "Create a team",
-          "description": "Creates a team in the organization.",
-          "requestBody": {
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/EndingBeforeParameter" },
+          { "$ref": "#/components/parameters/StartingAfterParameter" },
+          { "$ref": "#/components/parameters/LimitParameter" },
+          { "$ref": "#/components/parameters/ReverseParameter" },
+          { "$ref": "#/components/parameters/ExpandParameter" }
+        ],
+        "tags": ["Trading"],
+        "responses": {
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewTeam"
-                }
-              }
-            },
-            "required": true
-          },
-          "tags": ["Teams"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Team"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Trade" }
                 }
               }
             }
-          }
-        },
-        "get": {
-          "summary": "List all teams",
-          "description": "Lists all teams in the organizations, in the order that they were created.",
-          "tags": ["Teams"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Team"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/org/teams/{team}": {
-        "delete": {
-          "summary": "Delete a team",
-          "description": "Deletes a team in the organization.",
-          "parameters": [{
-            "name": "team",
-            "in": "path",
-            "description": "The team symbol.",
+      }
+    },
+    "/org/reporting/executions": {
+      "get": {
+        "summary": "List trade executions",
+        "description": "Lists all trade executions which match the given filters.",
+        "parameters": [
+          {
+            "name": "accounts",
+            "in": "query",
+            "description": "A comma separated list of accounts.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Teams"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "get": {
-          "summary": "Retrieve a team",
-          "description": "Retrieves a team in the organization.",
-          "parameters": [{
-            "name": "team",
-            "in": "path",
-            "description": "The team symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Teams"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Team"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "patch": {
-          "summary": "Update a team",
-          "description": "Updates an existing team in the organization.",
-          "parameters": [{
-            "name": "team",
-            "in": "path",
-            "description": "The team symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "requestBody": {
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "venues",
+            "in": "query",
+            "description": "A comma separated list of venues",
+            "required": false,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "users",
+            "in": "query",
+            "description": "A comma separated list of users",
+            "required": false,
+            "schema": { "type": "string" }
+          },
+          { "$ref": "#/components/parameters/StartingAfterParameter" },
+          { "$ref": "#/components/parameters/EndingBeforeParameter" },
+          { "$ref": "#/components/parameters/LimitParameter" },
+          { "$ref": "#/components/parameters/OffsetParameter" }
+        ],
+        "tags": ["Reporting"],
+        "responses": {
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TeamUpdate"
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ExecutionReport" }
                 }
               }
-            },
-            "required": true
+            }
           },
-          "tags": ["Teams"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Team"
-                  }
-                }
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/org/teams/{team}/members": {
-        "get": {
-          "summary": "List team members",
-          "description": "Lists all members of the team in the organization.",
-          "parameters": [{
-            "name": "team",
-            "in": "path",
-            "description": "The team symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Teams"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/User"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/grants": {
-        "get": {
-          "summary": "List all grants",
-          "description": "Lists all grants, in the order that they were created.",
-          "tags": ["Grants"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Grant"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/grants/{grant}": {
-        "get": {
-          "summary": "Retrieve a grant",
-          "description": "Retrieves the grant for the given symbol.",
-          "parameters": [{
-            "name": "grant",
-            "in": "path",
-            "description": "The grant symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Grants"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Grant"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/resources": {
-        "get": {
-          "summary": "List all resources",
-          "description": "Lists all resources, in the order that they were created.",
-          "tags": ["Resources"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Resource"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/resources/{resource}": {
-        "get": {
-          "summary": "Retrieve a resource",
-          "description": "Retrieves the resource for the given symbol.",
-          "parameters": [{
-            "name": "resource",
-            "in": "path",
-            "description": "The resource symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Resources"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Resource"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/org/accounts": {
-        "post": {
-          "summary": "Create an account",
-          "description": "Creates an account in the organization.",
-          "requestBody": {
+      }
+    },
+    "/org/settings/timeout_notifications": {
+      "get": {
+        "summary": "Retrieve timeout notifications",
+        "description": "Retrieves the notification emails for timeouts",
+        "tags": ["Organization"],
+        "responses": {
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewAccount"
-                }
-              }
-            },
-            "required": true
-          },
-          "tags": ["Accounts"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Account"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
+                  "$ref": "#/components/schemas/TimeoutNotifications"
                 }
               }
             }
-          }
-        },
-        "get": {
-          "summary": "List all accounts",
-          "description": "Lists all accounts in the organization, in the order that they were created.",
-          "tags": ["Accounts"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Account"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
       },
-      "/org/accounts/{account}": {
-        "delete": {
-          "summary": "Delete an account",
-          "description": "Deletes an account in the organization.",
-          "parameters": [{
+      "patch": {
+        "summary": "Update timeout notifications",
+        "description": "Updates the notification emails for timeouts",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeoutNotificationsUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "tags": ["Organization"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeoutNotifications"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/org/accounts": {
+      "post": {
+        "summary": "Create an account",
+        "description": "Creates an account in the organization.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/NewAccount" }
+            }
+          },
+          "required": true
+        },
+        "tags": ["Accounts"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Account" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List all accounts",
+        "description": "Lists all accounts in the organization, in the order that they were created.",
+        "tags": ["Accounts"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Account" }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/org/accounts/{account}": {
+      "delete": {
+        "summary": "Delete an account",
+        "description": "Deletes an account in the organization.",
+        "parameters": [
+          {
             "name": "account",
             "in": "path",
             "description": "The account symbol.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Accounts"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            "schema": { "type": "string" }
+          }
+        ],
+        "tags": ["Accounts"],
+        "responses": {
+          "204": { "description": "No Content" },
+          "401": {
+            "description": "Unauthorized: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
-        },
-        "get": {
-          "summary": "Retrieve an account",
-          "description": "Retrieves an account in the organization.",
-          "parameters": [{
+        }
+      },
+      "get": {
+        "summary": "Retrieve an account",
+        "description": "Retrieves an account in the organization.",
+        "parameters": [
+          {
             "name": "account",
             "in": "path",
             "description": "The account symbol.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Accounts"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Account"
-                  }
-                }
+            "schema": { "type": "string" }
+          }
+        ],
+        "tags": ["Accounts"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Account" }
               }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
-        },
-        "patch": {
-          "summary": "Update an account",
-          "description": "Updates an existing account in the organization.",
-          "parameters": [{
+        }
+      },
+      "patch": {
+        "summary": "Update an account",
+        "description": "Updates an existing account in the organization.",
+        "parameters": [
+          {
             "name": "account",
             "in": "path",
             "description": "The account symbol.",
             "required": true,
-            "schema": {
-              "type": "string"
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AccountUpdate" }
             }
-          }],
-          "requestBody": {
+          },
+          "required": true
+        },
+        "tags": ["Accounts"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Account" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/org/security/allowed_ips": {
+      "get": {
+        "summary": "Retrieve allowed IP addresses",
+        "description": "Retrieves the IP address ranges which are allowed access for the organization.",
+        "tags": ["Security"],
+        "responses": {
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AccountUpdate"
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/AllowedIP" }
                 }
               }
-            },
-            "required": true
+            }
           },
-          "tags": ["Accounts"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Account"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
       },
-      "/org/onboarding/requests/{request}": {
-        "put": {
-          "summary": "Accept an onboarding request",
-          "description": "Accepts the specified onboarding request.",
-          "parameters": [{
-            "name": "request",
-            "in": "path",
-            "description": "The request symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Onboarding"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+      "patch": {
+        "summary": "Update allowed IP addresses",
+        "description": "Updates the IP address ranges which are allowed access for the organization.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/AllowedIPUpdate" }
               }
             }
-          }
+          },
+          "required": true
         },
-        "delete": {
-          "summary": "Decline an onboarding request",
-          "description": "Declines an onboarding request for an organization.",
-          "parameters": [{
-            "name": "request",
-            "in": "path",
-            "description": "The request symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Onboarding"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "get": {
-          "summary": "Retrieve an onboarding request",
-          "description": "Retrieves an onboarding request in the organization.",
-          "parameters": [{
-            "name": "request",
-            "in": "path",
-            "description": "The request symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Onboarding"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/OnboardingRequest"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/org/onboarding/requests": {
-        "post": {
-          "summary": "Create an onboarding request",
-          "description": "Creates an onboarding request in the organization.",
-          "requestBody": {
+        "tags": ["Security"],
+        "responses": {
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewOnboardingRequest"
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/AllowedIP" }
                 }
               }
-            },
-            "required": true
+            }
           },
-          "tags": ["Onboarding"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/OnboardingRequest"
-                  }
-                }
+          "400": {
+            "description": "Bad Request: CIDR blocks are invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
-        },
-        "get": {
-          "summary": "List all onboarding requests",
-          "description": "Lists all onboarding requests in the organization, in the order that they were created.",
-          "tags": ["Onboarding"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/OnboardingRequest"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+        }
+      }
+    },
+    "/org/security/require_mfa": {
+      "put": {
+        "summary": "Require MFA",
+        "description": "Requires all users in the organization have MFA enabled.",
+        "tags": ["Security"],
+        "responses": {
+          "204": { "description": "No Content" },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
       },
-      "/org/onboarding/declined_requests": {
-        "get": {
-          "summary": "List all declined onboarding requests",
-          "description": "Lists all declined onboarding requests in the organization, in the order that they were created.",
-          "tags": ["Onboarding"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/OnboardingRequest"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+      "delete": {
+        "summary": "Unrequire MFA",
+        "description": "Removes the MFA enforcement from the organization.",
+        "tags": ["Security"],
+        "responses": {
+          "204": { "description": "No Content" },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/org/streams": {
-        "post": {
-          "summary": "Create a stream",
-          "description": "Creates a stream in the organization.",
-          "requestBody": {
+      }
+    },
+    "/org/roles": {
+      "get": {
+        "summary": "List all roles",
+        "description": "Lists all roles in the organization, in the order that they were added.",
+        "tags": ["Roles"],
+        "responses": {
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewStream"
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Role" }
                 }
               }
-            },
-            "required": true
+            }
           },
-          "tags": ["Streams"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Stream"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "get": {
-          "summary": "List all streams",
-          "description": "Lists all streams in the organizations, in the order that they were created.",
-          "tags": ["Streams"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Stream"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/org/streams/{stream}": {
-        "delete": {
-          "summary": "Delete a stream",
-          "description": "Deletes a stream in the organization.",
-          "parameters": [{
-            "name": "stream",
-            "in": "path",
-            "description": "The stream symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Streams"],
-          "responses": {
-            "204": {
-              "description": "No Content"
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "get": {
-          "summary": "Retrieve a stream",
-          "description": "Retrieves a stream in the organization.",
-          "parameters": [{
-            "name": "stream",
-            "in": "path",
-            "description": "The stream symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Streams"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Stream"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "patch": {
-          "summary": "Update a stream",
-          "description": "Updates an existing stream in the organization.",
-          "parameters": [{
-            "name": "stream",
-            "in": "path",
-            "description": "The stream symbol.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "requestBody": {
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StreamUpdate"
-                }
-              }
-            },
-            "required": true
-          },
-          "tags": ["Streams"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Stream"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
-      },
-      "/org/roles": {
-        "get": {
-          "summary": "List all roles",
-          "description": "Lists all roles in the organization, in the order that they were added.",
-          "tags": ["Roles"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Role"
-                    }
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/org/roles/{role}": {
-        "get": {
-          "summary": "Retrieve a role",
-          "description": "Returns a role in the organization.",
-          "parameters": [{
+      }
+    },
+    "/org/roles/{role}": {
+      "get": {
+        "summary": "Retrieve a role",
+        "description": "Returns a role in the organization.",
+        "parameters": [
+          {
             "name": "role",
             "in": "path",
             "description": "The role symbol.",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }],
-          "tags": ["Roles"],
-          "responses": {
-            "200": {
-              "description": "Ok",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Role"
-                  }
-                }
+            "schema": { "type": "string" }
+          }
+        ],
+        "tags": ["Roles"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Role" }
               }
-            },
-            "401": {
-              "description": "Unauthorised: Authorization information is missing or invalid.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
+            }
+          },
+          "401": {
+            "description": "Unauthorised: Authorization information is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
         }
       }
+    }
+  },
+  "components": {
+    "parameters": {
+      "EndingBeforeParameter": {
+        "in": "query",
+        "name": "ending_before",
+        "schema": { "type": "integer", "minimum": 0 },
+        "required": false,
+        "description": "The time in unix milliseconds."
+      },
+      "ExpandParameter": {
+        "in": "query",
+        "name": "expand",
+        "schema": { "type": "string" },
+        "required": false,
+        "description": "A comma separated list of properties to expand."
+      },
+      "LimitParameter": {
+        "in": "query",
+        "name": "limit",
+        "schema": { "type": "integer", "minimum": 0, "default": 10 },
+        "required": false,
+        "description": "A limit on the number of objects to be returned. Default is 10."
+      },
+      "OffsetParameter": {
+        "in": "query",
+        "name": "offset",
+        "schema": { "type": "integer", "minimum": 0, "default": 0 },
+        "required": false,
+        "description": "An offset on the objects to be returned."
+      },
+      "ReverseParameter": {
+        "in": "query",
+        "name": "reverse",
+        "schema": { "type": "boolean" },
+        "required": false,
+        "description": "Reverses the results."
+      },
+      "StartingAfterParameter": {
+        "in": "query",
+        "name": "starting_after",
+        "schema": { "type": "integer", "minimum": 0 },
+        "required": false,
+        "description": "The time in unix milliseconds."
+      }
     },
-    "components": {
-      "parameters": {
-        "EndingBeforeParameter": {
-          "in": "query",
-          "name": "ending_before",
-          "schema": {
-            "type": "integer",
-            "minimum": 0
+    "schemas": {
+      "Account": {
+        "properties": {
+          "created_ts": {
+            "description": "Created time in unix nanoseconds.",
+            "type": "number"
           },
-          "required": false,
-          "description": "The time in unix milliseconds."
-        },
-        "ExpandParameter": {
-          "in": "query",
-          "name": "expand",
-          "schema": {
+          "description": {
+            "description": "Human readable long description.",
             "type": "string"
           },
-          "required": false,
-          "description": "A comma separated list of properties to expand."
-        },
-        "LimitParameter": {
-          "in": "query",
-          "name": "limit",
-          "schema": {
-            "type": "integer",
-            "minimum": 0
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
           },
-          "required": false,
-          "description": "A limit on the number of objects to be returned. Default is 10."
+          "prime_broker": {
+            "description": "Prime broker venue symbol.",
+            "type": "string"
+          },
+          "symbol": {
+            "description": "Machine readable identifier.",
+            "type": "string"
+          },
+          "updated_ts": {
+            "description": "Updated time in unix nanoseconds.",
+            "type": "number"
+          }
         },
-        "ReverseParameter": {
-          "in": "query",
-          "name": "reverse",
-          "schema": {
+        "required": ["created_ts", "symbol"]
+      },
+      "AccountUpdate": {
+        "properties": {
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
+          },
+          "description": {
+            "description": "Human readable long description.",
+            "type": "string"
+          },
+          "prime_broker": {
+            "description": "Prime broker venue symbol.",
+            "type": "string"
+          }
+        }
+      },
+      "AllowedIP": {
+        "properties": {
+          "ip_address": {
+            "description": "IP address or CIDR range from which access is allowed.",
+            "type": "string"
+          }
+        },
+        "required": ["ip_address"]
+      },
+      "AllowedIPUpdate": {
+        "properties": {
+          "ip_address": {
+            "description": "IP address or CIDR range from which access is allowed.",
+            "type": "string"
+          }
+        },
+        "required": ["ip_address"]
+      },
+      "Asset": {
+        "properties": {
+          "asset_type": {
+            "description": "The asset type. One of Cmdty, Corp, Ccy, Eqty, Govt, Index, Crypto.",
+            "type": "string"
+          },
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
+          },
+          "id": {
+            "description": "Unique identifer for the object. ISO 4217 number for currencies.",
+            "type": "number"
+          },
+          "symbol": {
+            "description": "Machine readable identifier.",
+            "type": "string"
+          }
+        },
+        "required": ["id", "symbol"]
+      },
+      "Audit": {
+        "properties": {
+          "id": { "type": "string" },
+          "location": { "type": "string" },
+          "method": { "type": "string" },
+          "remote_address": { "type": "string" },
+          "url": { "type": "string" },
+          "user": { "type": "string" },
+          "ts": { "type": "number" }
+        },
+        "required": ["id", "ts", "url", "user"]
+      },
+      "CancelOrder": {
+        "properties": {
+          "cl_order_id": {
+            "description": "Request identifier assigned by the client (Max 48 characters).",
+            "type": "string"
+          },
+          "account": { "description": "Trading account.", "type": "string" }
+        },
+        "required": ["cl_order_id", "account"]
+      },
+      "Error": {
+        "properties": {
+          "message": {
+            "description": "Human readable description of the error.",
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "description": "The field the error corresponds to.",
+                  "type": "string"
+                },
+                "code": {
+                  "description": "One of additional_field, missing_field, missing_body, invalid.",
+                  "type": "string"
+                },
+                "message": {
+                  "description": "Human readable description.",
+                  "type": "string"
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        },
+        "required": ["message"]
+      },
+      "ExecutionReport": {
+        "properties": {
+          "account": { "type": "string", "description": "Trading account." },
+          "cl_order_id": {
+            "type": "string",
+            "description": "Request identifier assigned by the client (Max 48 characters)."
+          },
+          "counterparty": { "type": "string", "description": "Counterparty" },
+          "effective_time": {
+            "type": "string",
+            "description": "Receive time from the system. ISO-8601 format."
+          },
+          "exec_id": { "type": "string", "description": "Execution ID." },
+          "exec_venue": {
+            "type": "string",
+            "description": "Underlying execution venue."
+          },
+          "instr": {
+            "type": "string",
+            "description": "Underlying instrument."
+          },
+          "last_price": {
+            "type": "number",
+            "description": "Price of this fill."
+          },
+          "last_qty": {
+            "type": "number",
+            "description": "Quantity traded on this fill."
+          },
+          "liq_ind": {
+            "type": "string",
+            "description": "Liquidity indicator.",
+            "enum": ["None", "Maker", "Taker"]
+          },
+          "market": {
+            "type": "string",
+            "description": "Market the trade was placed against."
+          },
+          "order_id": { "type": "string", "description": "Order ID." },
+          "order_type": {
+            "type": "string",
+            "description": "Order type. e.g. Limit, Market.",
+            "enum": ["None", "Limit", "Market", "Stop", "Quoted"]
+          },
+          "price": { "type": "number", "description": "Order price." },
+          "qty_type": {
+            "type": "string",
+            "description": "Type of quantity specified in qty field.",
+            "enum": ["None", "Base", "Term"]
+          },
+          "qty": { "type": "number", "description": "Total quantity." },
+          "quote_id": { "type": "string", "description": "Quote ID." },
+          "sending_time": {
+            "type": "string",
+            "description": "Created time. ISO-8601 format."
+          },
+          "settl_date": {
+            "type": "string",
+            "description": "The settlement date. YYYY-MM-DD format."
+          },
+          "side": {
+            "type": "string",
+            "description": "Trade side.",
+            "enum": ["None", "Buy", "Sell"]
+          },
+          "tenor": { "type": "string", "description": "Tenor symbol." },
+          "text": {
+            "type": "string",
+            "description": "Free text field. Max 128 characters."
+          },
+          "time_type": {
+            "type": "string",
+            "description": "Time in force.",
+            "enum": ["None", "GTC", "IOC", "FOK", "GFD"]
+          },
+          "trade_date": {
+            "type": "string",
+            "description": "The date of the trade. YYYY-MM-DD format."
+          },
+          "transact_time": {
+            "type": "string",
+            "description": "Transmit time from the system. ISO-8601 format."
+          },
+          "user": {
+            "type": "string",
+            "description": "User who created the trade."
+          },
+          "venue": { "type": "string", "description": "Routing venue." }
+        },
+        "required": [
+          "accnt",
+          "effective_time",
+          "instr",
+          "price",
+          "qty",
+          "sending_time",
+          "side",
+          "tenor",
+          "transact_time",
+          "user",
+          "venue"
+        ]
+      },
+      "Grant": {
+        "properties": {
+          "action": {
+            "description": "CRUD:possession action.",
+            "type": "string"
+          },
+          "attributes": { "description": "ABAC properties.", "type": "string" },
+          "resource": {
+            "description": "Associated resource symbol.",
+            "type": "string"
+          },
+          "role": { "description": "Associated role symbol.", "type": "string" }
+        },
+        "required": ["action", "attributes", "resource", "role"]
+      },
+      "Instrument": {
+        "properties": {
+          "asset_type": {
+            "description": "The asset type. One of Cmdty, Corp, Ccy, Eqty, Govt, Index, Crypto.",
+            "type": "string"
+          },
+          "base_asset": { "description": "The base asset.", "type": "string" },
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
+          },
+          "id": {
+            "description": "Unique identifer for the object.",
+            "type": "number"
+          },
+          "pip_dp": {
+            "description": "Conventional pip decimal places.",
+            "type": "number"
+          },
+          "pip_digits": {
+            "description": "Conventional pip digits.",
+            "type": "number"
+          },
+          "price_dp": {
+            "description": "Price display decimal places.",
+            "type": "number"
+          },
+          "settl_type": {
+            "description": "Cash or Physical delivery.",
+            "type": "string"
+          },
+          "symbol": {
+            "description": "Machine readable identifier.",
+            "type": "string"
+          },
+          "tenor": {
+            "description": "The tenor or delivery month.",
+            "type": "string"
+          },
+          "term_asset": { "description": "The term asset.", "type": "string" }
+        },
+        "required": ["id", "symbol"]
+      },
+      "Market": {
+        "properties": {
+          "base_dp": { "type": "number" },
+          "base_default_lots": { "type": "number" },
+          "base_denom": { "type": "number" },
+          "base_numer": { "type": "number" },
+          "display": { "type": "string" },
+          "id": { "type": "number" },
+          "instr": { "type": "string" },
+          "price_denom": { "type": "number" },
+          "price_dp": { "type": "number" },
+          "price_numer": { "type": "number" },
+          "symbol": { "type": "string" },
+          "tenor": { "type": "string" },
+          "term_default_lots": { "type": "number" },
+          "term_denom": { "type": "number" },
+          "term_dp": { "type": "number" },
+          "term_numer": { "type": "number" },
+          "venue": { "type": "string" },
+          "venue_symbol": { "type": "string" }
+        },
+        "required": ["id", "symbol"]
+      },
+      "NewAccount": {
+        "properties": {
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
+          },
+          "description": {
+            "description": "Human readable long description.",
+            "type": "string"
+          },
+          "prime_broker": {
+            "description": "Prime broker venue symbol.",
+            "type": "string"
+          }
+        },
+        "required": ["display"]
+      },
+      "NewOnboardingRequest": {
+        "properties": {
+          "description": {
+            "description": "Human readable long description.",
+            "type": "string"
+          },
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
+          }
+        },
+        "required": ["display"]
+      },
+      "NewOrder": {
+        "properties": {
+          "cl_order_id": {
+            "description": "Request identifier assigned by the client (Max 48 characters).",
+            "type": "string"
+          },
+          "account": { "description": "Trading account.", "type": "string" },
+          "market": {
+            "description": "Market to place the order against.",
+            "type": "string"
+          },
+          "price": { "description": "Order price.", "type": "number" },
+          "price_tolerance": {
+            "description": "Order price tolerance in absolute terms.",
+            "type": "number"
+          },
+          "qty": {
+            "description": "Order quantity. MUST be greater than zero.",
+            "type": "number"
+          },
+          "quote_id": { "description": "Quote Indentifier.", "type": "string" },
+          "side": {
+            "description": "The order side. Buy or Sell.",
+            "type": "string"
+          },
+          "strat_type": {
+            "description": "Strategy type to execute.",
+            "type": "string"
+          },
+          "tenor": {
+            "description": "Tenor symbol. Defaults to SP.",
+            "type": "string"
+          },
+          "text": {
+            "description": "Free text field for customer use. Max 128 characters.",
+            "type": "string"
+          }
+        },
+        "required": ["account", "cl_order_id", "market", "qty", "side"]
+      },
+      "NewOrderResponse": {
+        "properties": {
+          "cl_order_id": {
+            "description": "Request identifier assigned by the client (Max 48 characters).",
+            "type": "string"
+          },
+          "account": { "description": "Trading account.", "type": "string" },
+          "market": {
+            "description": "Market to place the order against.",
+            "type": "string"
+          },
+          "price": { "description": "Order price.", "type": "number" },
+          "price_tolerance": {
+            "description": "Order price tolerance in absolute terms.",
+            "type": "number"
+          },
+          "qty": {
+            "description": "Order quantity. MUST be greater than zero.",
+            "type": "number"
+          },
+          "side": {
+            "description": "The order side. Buy or Sell.",
+            "type": "string"
+          },
+          "strat_type": {
+            "description": "Strategy type to execute.",
+            "type": "string"
+          },
+          "rts": {
+            "description": "Receive time from the system.",
+            "type": "number"
+          },
+          "tts": {
+            "description": "Transmit time from the system.",
+            "type": "number"
+          }
+        }
+      },
+      "NewOrganization": {
+        "properties": {
+          "description": {
+            "description": "Human readable long description.",
+            "type": "string"
+          },
+          "email": {
+            "description": "Email of the organization.",
+            "type": "string"
+          },
+          "display": {
+            "description": "Organization display name.",
+            "type": "string"
+          },
+          "phone_number": {
+            "description": "Contact number.",
+            "type": "string"
+          },
+          "require_mfa": {
+            "description": "Enforce MFA logins across the organization.",
+            "type": "boolean"
+          }
+        }
+      },
+      "NewsArticle": {
+        "properties": {
+          "creator": { "type": "string" },
+          "id": { "type": "string" },
+          "image": { "type": "string" },
+          "link": { "type": "string" },
+          "pub_ts": { "type": "number" },
+          "source": { "type": "string" },
+          "summary": { "type": "string" },
+          "title": { "type": "string" }
+        },
+        "required": ["id"]
+      },
+      "NewsCategory": {
+        "properties": {
+          "description": { "type": "string" },
+          "display": { "type": "string" },
+          "symbol": { "type": "string" }
+        },
+        "required": ["symbol"]
+      },
+      "NewsFeed": {
+        "properties": {
+          "description": { "type": "string" },
+          "display": { "type": "string" },
+          "symbol": { "type": "string" }
+        },
+        "required": ["symbol"]
+      },
+      "NewStream": {
+        "properties": {
+          "display": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": ["display"]
+      },
+      "NewTeam": {
+        "properties": {
+          "description": {
+            "description": "A description of the team.",
+            "type": "string"
+          },
+          "display": {
+            "description": "The display name of the team.",
+            "type": "string"
+          }
+        },
+        "required": ["display"]
+      },
+      "NewUser": {
+        "properties": {
+          "email": { "type": "string" },
+          "name": { "type": "string" },
+          "organization": { "type": "string" },
+          "password": { "type": "string" },
+          "picture": { "type": "string" },
+          "require_mfa": { "type": "boolean" },
+          "require_reset": { "type": "boolean" }
+        },
+        "required": ["email", "password"]
+      },
+      "Ohlc": {
+        "properties": {
+          "close": { "type": "number" },
+          "given": { "type": "number" },
+          "high": { "type": "number" },
+          "low": { "type": "number" },
+          "open": { "type": "number" },
+          "paid": { "type": "number" },
+          "tts": { "type": "number" }
+        },
+        "required": ["tts"]
+      },
+      "OnboardingRequest": {
+        "properties": {
+          "accepted": { "type": "boolean" },
+          "accepted_ts": { "type": "number" },
+          "created_ts": { "type": "number" },
+          "description": { "type": "string" },
+          "name": { "type": "string" },
+          "symbol": { "type": "string" }
+        },
+        "required": ["created_ts", "name", "symbol"]
+      },
+      "Order": {
+        "properties": {
+          "accnt": { "type": "string" },
+          "active": { "type": "string" },
+          "avg_price": { "type": "number" },
+          "cl_order_id": { "type": "string" },
+          "created_ts": { "type": "number" },
+          "cum_qty": { "type": "number" },
+          "exec_id": { "type": "string" },
+          "exec_type": { "type": "string" },
+          "exec_venue": { "type": "string" },
+          "last_price": { "type": "number" },
+          "last_qty": { "type": "number" },
+          "liq_ind": { "type": "string" },
+          "market": { "type": "string" },
+          "min_qty": { "type": "number" },
+          "order_id": { "type": "string" },
+          "order_state": { "type": "string" },
+          "order_type": { "type": "string" },
+          "prev_qty": { "type": "number" },
+          "price": { "type": "number" },
+          "qty": { "type": "number" },
+          "qty_type": { "type": "string" },
+          "quote_id": { "type": "string" },
+          "resd_qty": { "type": "number" },
+          "rts": { "type": "number" },
+          "side": { "type": "string" },
+          "slippage": { "type": "number" },
+          "strat_type": { "type": "string" },
+          "tenor": { "type": "string" },
+          "time_type": { "type": "string" },
+          "trans_ts": { "type": "number" },
+          "tts": { "type": "string" }
+        }
+      },
+      "OrderUpdate": {
+        "properties": {
+          "account": { "description": "Trading account.", "type": "string" },
+          "cl_order_id": {
+            "description": "Request identifier assigned by the client (Max 48 characters).",
+            "type": "string"
+          },
+          "price": { "description": "Order price.", "type": "number" },
+          "qty": {
+            "description": "Order quantity. MUST be greater than zero.",
+            "type": "number"
+          }
+        },
+        "required": ["account", "cl_order_id"]
+      },
+      "OrderUpdateResponse": {
+        "properties": {
+          "account": { "description": "Trading account.", "type": "string" },
+          "cl_order_id": {
+            "description": "Request identifier assigned by the client (Max 48 characters).",
+            "type": "string"
+          },
+          "price": { "description": "Order price.", "type": "number" },
+          "qty": {
+            "description": "Order quantity. MUST be greater than zero.",
+            "type": "number"
+          }
+        }
+      },
+      "Organization": {
+        "properties": {
+          "address": { "description": "Company address.", "type": "string" },
+          "billing_address": {
+            "description": "Billing address.",
+            "type": "string"
+          },
+          "created_ts": {
+            "description": "Created time in unix nanoseconds.",
+            "type": "number"
+          },
+          "description": {
+            "description": "Human readable long description.",
+            "type": "string"
+          },
+          "display": {
+            "description": "Organization display name.",
+            "type": "string"
+          },
+          "email": {
+            "description": "Email of the organization.",
+            "type": "string"
+          },
+          "picture": {
+            "description": "Url of the organization picture.",
+            "type": "string"
+          },
+          "phone_number": {
+            "description": "Contact number.",
+            "type": "string"
+          },
+          "require_mfa": {
+            "description": "Enforce MFA logins across the organization.",
             "type": "boolean"
           },
-          "required": false,
-          "description": "Reverses the results."
-        },
-        "StartingAfterParameter": {
-          "in": "query",
-          "name": "starting_after",
-          "schema": {
-            "type": "integer",
-            "minimum": 0
+          "symbol": {
+            "description": "Machine readable identifier.",
+            "type": "string"
           },
-          "required": false,
-          "description": "The time in unix milliseconds."
+          "updated_ts": {
+            "description": "Updated time in unix nanoseconds.",
+            "type": "number"
+          },
+          "website": {
+            "description": "Url of the organization website.",
+            "type": "string"
+          }
+        },
+        "required": ["created_ts", "symbol"]
+      },
+      "OrganizationUpdate": {
+        "properties": {
+          "address": { "description": "Company address.", "type": "string" },
+          "billing_address": {
+            "description": "Billing address.",
+            "type": "string"
+          },
+          "description": {
+            "description": "Human readable long description.",
+            "type": "string"
+          },
+          "display": {
+            "description": "Organization display name.",
+            "type": "string"
+          },
+          "email": {
+            "description": "Email of the organization.",
+            "type": "string"
+          },
+          "picture": {
+            "description": "Url of the organization picture.",
+            "type": "string"
+          },
+          "phone_number": {
+            "description": "Contact number.",
+            "type": "string"
+          },
+          "website": {
+            "description": "Url of the organization website.",
+            "type": "string"
+          }
         }
       },
-      "schemas": {
-        "Account": {
-          "properties": {
-            "created_ts": {
-              "description": "Created time in unix nanoseconds.",
-              "type": "number"
-            },
-            "description": {
-              "description": "Human readable long description.",
-              "type": "string"
-            },
-            "display": {
-              "description": "Human readable description.",
-              "type": "string"
-            },
-            "prime_broker": {
-              "description": "Prime broker venue symbol.",
-              "type": "string"
-            },
-            "symbol": {
-              "description": "Machine readable identifier.",
-              "type": "string"
-            },
-            "updated_ts": {
-              "description": "Updated time in unix nanoseconds.",
-              "type": "number"
-            }
+      "Resource": {
+        "properties": {
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
           },
-          "required": ["created_ts", "symbol"]
-        },
-        "AccountUpdate": {
-          "properties": {
-            "display": {
-              "description": "Human readable description.",
-              "type": "string"
-            },
-            "description": {
-              "description": "Human readable long description.",
-              "type": "string"
-            },
-            "prime_broker": {
-              "description": "Prime broker venue symbol.",
-              "type": "string"
-            }
+          "description": {
+            "description": "Human readable long description.",
+            "type": "string"
+          },
+          "symbol": {
+            "description": "Machine readable identifier.",
+            "type": "string"
           }
         },
-        "Asset": {
-          "properties": {
-            "asset_type": {
-              "description": "The asset type. One of Cmdty, Corp, Ccy, Eqty, Govt, Index, Crypto.",
-              "type": "string"
-            },
-            "display": {
-              "description": "Human readable description.",
-              "type": "string"
-            },
-            "id": {
-              "description": "Unique identifer for the object. ISO 4217 number for currencies.",
-              "type": "number"
-            },
-            "symbol": {
-              "description": "Machine readable identifier.",
-              "type": "string"
-            }
+        "required": ["symbol"]
+      },
+      "Role": {
+        "properties": {
+          "description": {
+            "description": "Human readable long description.",
+            "type": "string"
           },
-          "required": ["id", "symbol"]
-        },
-        "Audit": {
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "location": {
-              "type": "string"
-            },
-            "method": {
-              "type": "string"
-            },
-            "remote_address": {
-              "type": "string"
-            },
-            "url": {
-              "type": "string"
-            },
-            "user": {
-              "type": "string"
-            },
-            "ts": {
-              "type": "number"
-            }
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
           },
-          "required": ["id", "ts", "url", "user"]
-        },
-        "Error": {
-          "properties": {
-            "message": {
-              "description": "Human readable description of the error.",
-              "type": "string"
-            },
-            "errors": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "field": {
-                    "description": "The field the error corresponds to.",
-                    "type": "string"
-                  },
-                  "code": {
-                    "description": "One of additional_field, missing_field, missing_body, invalid.",
-                    "type": "string"
-                  },
-                  "message": {
-                    "description": "Human readable description.",
-                    "type": "string"
-                  }
-                },
-                "required": ["code"]
-              }
-            }
-          },
-          "required": ["message"]
-        },
-        "Grant": {
-          "properties": {
-            "action": {
-              "description": "CRUD:possession action.",
-              "type": "string"
-            },
-            "attributes": {
-              "description": "ABAC properties.",
-              "type": "string"
-            },
-            "resource": {
-              "description": "Associated resource symbol.",
-              "type": "string"
-            },
-            "role": {
-              "description": "Associated role symbol.",
-              "type": "string"
-            }
-          },
-          "required": ["action", "attributes", "resource", "role"]
-        },
-        "Instrument": {
-          "properties": {
-            "asset_type": {
-              "description": "The asset type. One of Cmdty, Corp, Ccy, Eqty, Govt, Index, Crypto.",
-              "type": "string"
-            },
-            "base_asset": {
-              "description": "The base asset.",
-              "type": "string"
-            },
-            "display": {
-              "description": "Human readable description.",
-              "type": "string"
-            },
-            "id": {
-              "description": "Unique identifer for the object.",
-              "type": "number"
-            },
-            "pip_dp": {
-              "description": "Conventional pip decimal places.",
-              "type": "number"
-            },
-            "pip_digits": {
-              "description": "Conventional pip digits.",
-              "type": "number"
-            },
-            "price_dp": {
-              "description": "Price display decimal places.",
-              "type": "number"
-            },
-            "settl_type": {
-              "description": "Cash or Physical delivery.",
-              "type": "string"
-            },
-            "symbol": {
-              "description": "Machine readable identifier.",
-              "type": "string"
-            },
-            "tenor": {
-              "description": "The tenor or delivery month.",
-              "type": "string"
-            },
-            "term_asset": {
-              "description": "The term asset.",
-              "type": "string"
-            }
-          },
-          "required": ["id", "symbol"]
-        },
-        "Market": {
-          "properties": {
-            "base_dp": {
-              "type": "number"
-            },
-            "base_default_lots": {
-              "type": "number"
-            },
-            "base_denom": {
-              "type": "number"
-            },
-            "base_numer": {
-              "type": "number"
-            },
-            "display": {
-              "type": "string"
-            },
-            "id": {
-              "type": "number"
-            },
-            "instr": {
-              "type": "string"
-            },
-            "price_denom": {
-              "type": "number"
-            },
-            "price_dp": {
-              "type": "number"
-            },
-            "price_numer": {
-              "type": "number"
-            },
-            "symbol": {
-              "type": "string"
-            },
-            "tenor": {
-              "type": "string"
-            },
-            "term_default_lots": {
-              "type": "number"
-            },
-            "term_denom": {
-              "type": "number"
-            },
-            "term_dp": {
-              "type": "number"
-            },
-            "term_numer": {
-              "type": "number"
-            },
-            "venue": {
-              "type": "string"
-            },
-            "venue_symbol": {
-              "type": "string"
-            }
-          },
-          "required": ["id", "symbol"]
-        },
-        "NewAccount": {
-          "properties": {
-            "display": {
-              "description": "Human readable description.",
-              "type": "string"
-            },
-            "description": {
-              "description": "Human readable long description.",
-              "type": "string"
-            },
-            "prime_broker": {
-              "description": "Prime broker venue symbol.",
-              "type": "string"
-            }
-          },
-          "required": ["display"]
-        },
-        "NewOnboardingRequest": {
-          "properties": {
-            "description": {
-              "description": "Human readable long description.",
-              "type": "string"
-            },
-            "display": {
-              "description": "Human readable description.",
-              "type": "string"
-            }
-          },
-          "required": ["display"]
-        },
-        "NewOrder": {
-          "properties": {
-            "cl_order_id": {
-              "description": "Request identifier assigned by the client (Max 48 characters).",
-              "type": "string"
-            },
-            "account": {
-              "description": "Trading account.",
-              "type": "string"
-            },
-            "market": {
-              "description": "Market to place the order against.",
-              "type": "string"
-            },
-            "price": {
-              "description": "Order price.",
-              "type": "number"
-            },
-            "price_tolerance": {
-              "description": "Order price tolerance in absolute terms.",
-              "type": "number"
-            },
-            "qty": {
-              "description": "Order quantity. MUST be greater than zero.",
-              "type": "number"
-            },
-            "quote_id": {
-              "description": "Quote Indentifier.",
-              "type": "string"
-            },
-            "side": {
-              "description": "The order side. Buy or Sell.",
-              "type": "string"
-            },
-            "strat_type": {
-              "description": "Strategy type to execute.",
-              "type": "string"
-            },
-            "tenor": {
-              "description": "Tenor symbol. Defaults to SP.",
-              "type": "string"
-            },
-            "text": {
-              "description": "Free text field for customer use. Max 128 characters.",
-              "type": "string"
-            }
-          },
-          "required": ["market", "qty", "side"]
-        },
-        "NewOrderResponse": {
-          "properties": {
-            "cl_order_id": {
-              "description": "Request identifier assigned by the client (Max 48 characters).",
-              "type": "string"
-            },
-            "account": {
-              "description": "Trading account.",
-              "type": "string"
-            },
-            "market": {
-              "description": "Market to place the order against.",
-              "type": "string"
-            },
-            "price": {
-              "description": "Order price.",
-              "type": "number"
-            },
-            "price_tolerance": {
-              "description": "Order price tolerance in absolute terms.",
-              "type": "number"
-            },
-            "qty": {
-              "description": "Order quantity. MUST be greater than zero.",
-              "type": "number"
-            },
-            "side": {
-              "description": "The order side. Buy or Sell.",
-              "type": "string"
-            },
-            "strat_type": {
-              "description": "Strategy type to execute.",
-              "type": "string"
-            },
-            "rts": {
-              "description": "Receive time from the system.",
-              "type": "number"
-            },
-            "tts": {
-              "description": "Transmit time from the system.",
-              "type": "number"
-            }
+          "symbol": {
+            "description": "Machine readable identifier.",
+            "type": "string"
           }
         },
-        "NewOrganization": {
-          "properties": {
-            "description": {
-              "description": "Human readable long description.",
-              "type": "string"
-            },
-            "email": {
-              "description": "Email of the organization.",
-              "type": "string"
-            },
-            "display": {
-              "description": "Organization display name.",
-              "type": "string"
-            },
-            "phone_number": {
-              "description": "Contact number.",
-              "type": "string"
-            },
-            "require_mfa": {
-              "description": "Enforce MFA logins across the organization.",
-              "type": "boolean"
-            }
+        "required": ["symbol"]
+      },
+      "RoleUpdate": {
+        "properties": {
+          "description": {
+            "description": "Human readable long description.",
+            "type": "string"
+          },
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
           }
-        },
-        "NewStream": {
-          "properties": {
-            "display": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            }
-          },
-          "required": ["display"]
-        },
-        "NewTeam": {
-          "properties": {
-            "description": {
-              "description": "A description of the team.",
-              "type": "string"
-            },
-            "display": {
-              "description": "The display name of the team.",
-              "type": "string"
-            }
-          },
-          "required": ["display"]
-        },
-        "NewUser": {
-          "properties": {
-            "email": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "organization": {
-              "type": "string"
-            },
-            "password": {
-              "type": "string"
-            },
-            "picture": {
-              "type": "string"
-            },
-            "require_mfa": {
-              "type": "boolean"
-            },
-            "require_reset": {
-              "type": "boolean"
-            }
-          },
-          "required": ["email", "password"]
-        },
-        "NewsArticle": {
-          "properties": {
-            "creator": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "image": {
-              "type": "string"
-            },
-            "link": {
-              "type": "string"
-            },
-            "pub_ts": {
-              "type": "number"
-            },
-            "source": {
-              "type": "string"
-            },
-            "summary": {
-              "type": "string"
-            },
-            "title": {
-              "type": "string"
-            }
-          },
-          "required": ["id"]
-        },
-        "NewsCategory": {
-          "properties": {
-            "description": {
-              "type": "string"
-            },
-            "display": {
-              "type": "string"
-            },
-            "symbol": {
-              "type": "string"
-            }
-          },
-          "required": ["symbol"]
-        },
-        "NewsFeed": {
-          "properties": {
-            "description": {
-              "type": "string"
-            },
-            "display": {
-              "type": "string"
-            },
-            "symbol": {
-              "type": "string"
-            }
-          },
-          "required": ["symbol"]
-        },
-        "Ohlc": {
-          "properties": {
-            "close": {
-              "type": "number"
-            },
-            "given": {
-              "type": "number"
-            },
-            "high": {
-              "type": "number"
-            },
-            "low": {
-              "type": "number"
-            },
-            "open": {
-              "type": "number"
-            },
-            "paid": {
-              "type": "number"
-            },
-            "tts": {
-              "type": "number"
-            }
-          },
-          "required": ["tts"]
-        },
-        "OnboardingRequest": {
-          "properties": {
-            "accepted": {
-              "type": "boolean"
-            },
-            "accepted_ts": {
-              "type": "number"
-            },
-            "created_ts": {
-              "type": "number"
-            },
-            "description": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "symbol": {
-              "type": "string"
-            }
-          },
-          "required": ["created_ts", "name", "symbol"]
-        },
-        "Order": {
-          "properties": {
-            "accnt": {
-              "type": "string"
-            },
-            "active": {
-              "type": "string"
-            },
-            "avg_price": {
-              "type": "number"
-            },
-            "cl_order_id": {
-              "type": "string"
-            },
-            "created_ts": {
-              "type": "number"
-            },
-            "cum_qty": {
-              "type": "number"
-            },
-            "exec_id": {
-              "type": "string"
-            },
-            "exec_type": {
-              "type": "string"
-            },
-            "exec_venue": {
-              "type": "string"
-            },
-            "last_price": {
-              "type": "number"
-            },
-            "last_qty": {
-              "type": "number"
-            },
-            "liq_ind": {
-              "type": "string"
-            },
-            "market": {
-              "type": "string"
-            },
-            "min_qty": {
-              "type": "number"
-            },
-            "order_id": {
-              "type": "string"
-            },
-            "order_state": {
-              "type": "string"
-            },
-            "order_type": {
-              "type": "string"
-            },
-            "prev_qty": {
-              "type": "number"
-            },
-            "price": {
-              "type": "number"
-            },
-            "qty": {
-              "type": "number"
-            },
-            "qty_type": {
-              "type": "string"
-            },
-            "quote_id": {
-              "type": "string"
-            },
-            "resd_qty": {
-              "type": "number"
-            },
-            "rts": {
-              "type": "number"
-            },
-            "side": {
-              "type": "string"
-            },
-            "slippage": {
-              "type": "number"
-            },
-            "strat_type": {
-              "type": "string"
-            },
-            "time_type": {
-              "type": "string"
-            },
-            "trans_ts": {
-              "type": "number"
-            },
-            "tts": {
-              "type": "string"
-            }
-          }
-        },
-        "OrderUpdate": {
-          "properties": {
-            "account": {
-              "description": "Trading account.",
-              "type": "string"
-            },
-            "cl_order_id": {
-              "description": "Request identifier assigned by the client (Max 48 characters).",
-              "type": "string"
-            },
-            "price": {
-              "description": "Order price.",
-              "type": "number"
-            },
-            "qty": {
-              "description": "Order quantity. MUST be greater than zero.",
-              "type": "number"
-            }
-          }
-        },
-        "OrderUpdateResponse": {
-          "properties": {
-            "account": {
-              "description": "Trading account.",
-              "type": "string"
-            },
-            "cl_order_id": {
-              "description": "Request identifier assigned by the client (Max 48 characters).",
-              "type": "string"
-            },
-            "price": {
-              "description": "Order price.",
-              "type": "number"
-            },
-            "qty": {
-              "description": "Order quantity. MUST be greater than zero.",
-              "type": "number"
-            }
-          }
-        },
-        "Organization": {
-          "properties": {
-            "address": {
-              "description": "Company address.",
-              "type": "string"
-            },
-            "billing_address": {
-              "description": "Billing address.",
-              "type": "string"
-            },
-            "created_ts": {
-              "description": "Created time in unix nanoseconds.",
-              "type": "number"
-            },
-            "description": {
-              "description": "Human readable long description.",
-              "type": "string"
-            },
-            "display": {
-              "description": "Organization display name.",
-              "type": "string"
-            },
-            "email": {
-              "description": "Email of the organization.",
-              "type": "string"
-            },
-            "phone_number": {
-              "description": "Contact number.",
-              "type": "string"
-            },
-            "require_mfa": {
-              "description": "Enforce MFA logins across the organization.",
-              "type": "boolean"
-            },
-            "symbol": {
-              "description": "Machine readable identifier.",
-              "type": "string"
-            },
-            "updated_ts": {
-              "description": "Updated time in unix nanoseconds.",
-              "type": "number"
-            },
-            "website": {
-              "description": "Url of the organization website.",
-              "type": "string"
-            }
-          },
-          "required": ["created_ts", "symbol"]
-        },
-        "OrganizationUpdate": {
-          "properties": {
-            "address": {
-              "description": "Company address.",
-              "type": "string"
-            },
-            "billing_address": {
-              "description": "Billing address.",
-              "type": "string"
-            },
-            "description": {
-              "description": "Human readable long description.",
-              "type": "string"
-            },
-            "display": {
-              "description": "Organization display name.",
-              "type": "string"
-            },
-            "email": {
-              "description": "Email of the organization.",
-              "type": "string"
-            },
-            "phone_number": {
-              "description": "Contact number.",
-              "type": "string"
-            },
-            "website": {
-              "description": "Url of the organization website.",
-              "type": "string"
-            }
-          }
-        },
-        "Resource": {
-          "properties": {
-            "display": {
-              "description": "Human readable description.",
-              "type": "string"
-            },
-            "description": {
-              "description": "Human readable long description.",
-              "type": "string"
-            },
-            "symbol": {
-              "description": "Machine readable identifier.",
-              "type": "string"
-            }
-          },
-          "required": ["symbol"]
-        },
-        "Role": {
-          "properties": {
-            "description": {
-              "description": "Human readable long description.",
-              "type": "string"
-            },
-            "display": {
-              "description": "Human readable description.",
-              "type": "string"
-            },
-            "symbol": {
-              "description": "Machine readable identifier.",
-              "type": "string"
-            }
-          },
-          "required": ["symbol"]
-        },
-        "RoleUpdate": {
-          "properties": {
-            "description": {
-              "description": "Human readable long description.",
-              "type": "string"
-            },
-            "display": {
-              "description": "Human readable description.",
-              "type": "string"
-            }
-          }
-        },
-        "Strategy": {
-          "properties": {
-            "description": {
-              "description": "Human readable long description.",
-              "type": "string"
-            },
-            "display": {
-              "description": "Human readable description.",
-              "type": "string"
-            },
-            "flags": {
-              "description": "Flags to indicate the capabilities of the strategy.",
-              "type": "number"
-            },
-            "id": {
-              "description": "Unique identifer for the object.",
-              "type": "number"
-            },
-            "order_type": {
-              "description": "Order type for the strategy. e.g. Limit, Market",
-              "type": "string"
-            },
-            "priority": {
-              "description": "Display order for the strategies.",
-              "type": "number"
-            },
-            "symbol": {
-              "description": "Machine readable identifier.",
-              "type": "string"
-            },
-            "time_type": {
-              "description": "Time in force for the strategy.",
-              "type": "string"
-            }
-          },
-          "required": ["id", "symbol"]
-        },
-        "Stream": {
-          "properties": {
-            "created_ts": {
-              "type": "number"
-            },
-            "description": {
-              "type": "string"
-            },
-            "display": {
-              "type": "string"
-            },
-            "symbol": {
-              "type": "string"
-            },
-            "updated_ts": {
-              "type": "number"
-            }
-          },
-          "required": ["created_ts", "display", "symbol"]
-        },
-        "StreamUpdate": {
-          "properties": {
-            "display": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            }
-          }
-        },
-        "Team": {
-          "properties": {
-            "created_ts": {
-              "type": "number"
-            },
-            "description": {
-              "type": "string"
-            },
-            "display": {
-              "type": "string"
-            },
-            "symbol": {
-              "type": "string"
-            },
-            "updated_ts": {
-              "type": "number"
-            }
-          },
-          "required": ["created_ts", "symbol"]
-        },
-        "TeamUpdate": {
-          "properties": {
-            "description": {
-              "type": "string"
-            },
-            "display": {
-              "type": "string"
-            }
-          }
-        },
-        "Trade": {
-          "properties": {
-            "accnt": {
-              "type": "string"
-            },
-            "cost": {
-              "type": "number"
-            },
-            "exec_id": {
-              "type": "string"
-            },
-            "exec_venue": {
-              "type": "string"
-            },
-            "instr": {
-              "type": "string"
-            },
-            "liq_ind": {
-              "type": "string"
-            },
-            "market": {
-              "type": "string"
-            },
-            "order_id": {
-              "type": "string"
-            },
-            "price": {
-              "type": "number"
-            },
-            "qty": {
-              "type": "number"
-            },
-            "qty_type": {
-              "type": "string"
-            },
-            "quote_id": {
-              "type": "string"
-            },
-            "settl_date": {
-              "type": "string"
-            },
-            "side": {
-              "type": "string"
-            },
-            "trans_ts": {
-              "type": "number"
-            },
-            "user": {
-              "type": "string"
-            }
-          }
-        },
-        "User": {
-          "properties": {
-            "active_ts": {
-              "type": "number"
-            },
-            "company": {
-              "type": "string"
-            },
-            "created_ts": {
-              "type": "number"
-            },
-            "email": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "mfa": {
-              "type": "string"
-            },
-            "password_ts": {
-              "type": "number"
-            },
-            "picture": {
-              "type": "string"
-            },
-            "require_mfa": {
-              "type": "boolean"
-            },
-            "require_reset": {
-              "type": "boolean"
-            },
-            "suspended": {
-              "type": "boolean"
-            },
-            "updated_ts": {
-              "type": "number"
-            }
-          },
-          "required": ["created_ts", "email", "id", "name"]
-        },
-        "UserActivity": {
-          "properties": {
-            "ip": {
-              "type": "string"
-            },
-            "provider": {
-              "type": "string"
-            },
-            "reason": {
-              "type": "string"
-            },
-            "success": {
-              "type": "string"
-            },
-            "ts": {
-              "type": "string"
-            },
-            "type": {
-              "type": "string"
-            },
-            "browser": {
-              "type": "string"
-            },
-            "browserVersion": {
-              "type": "string"
-            },
-            "city": {
-              "type": "string"
-            },
-            "location": {
-              "type": "string"
-            },
-            "os": {
-              "type": "string"
-            },
-            "platform": {
-              "type": "string"
-            },
-            "region": {
-              "type": "string"
-            }
-          },
-          "required": ["ip", "provider", "reason", "success", "ts", "type", "browser", "browserVersion", "city", "location", "os", "platform", "region"]
-        },
-        "UserUpdate": {
-          "properties": {
-            "email": {
-              "description": "The users email address.",
-              "type": "string"
-            },
-            "name": {
-              "description": "The full name of the user.",
-              "type": "string"
-            },
-            "picture": {
-              "description": "A https link to the users picture.",
-              "type": "string"
-            }
-          }
-        },
-        "UserUpdateAdmin": {
-          "properties": {
-            "email": {
-              "description": "The users email address.",
-              "type": "string"
-            },
-            "name": {
-              "description": "The full name of the user.",
-              "type": "string"
-            },
-            "organization": {
-              "description": "The users organization.",
-              "type": "string"
-            },
-            "picture": {
-              "description": "A https link to the users picture.",
-              "type": "string"
-            },
-            "username": {
-              "description": "A default username for the user.",
-              "type": "string"
-            }
-          }
-        },
-        "Venue": {
-          "properties": {
-            "display": {
-              "description": "Human readable description.",
-              "type": "string"
-            },
-            "flags": {
-              "description": "Flags to indicate the capabilities of the venue.",
-              "type": "number"
-            },
-            "id": {
-              "description": "Unique identifer for the object.",
-              "type": "number"
-            },
-            "symbol": {
-              "description": "Machine readable identifier.",
-              "type": "string"
-            }
-          },
-          "required": ["symbol"]
         }
       },
-      "securitySchemes": {
-        "bearer": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
+      "Strategy": {
+        "properties": {
+          "description": {
+            "description": "Human readable long description.",
+            "type": "string"
+          },
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
+          },
+          "flags": {
+            "description": "Flags to indicate the capabilities of the strategy.",
+            "type": "number"
+          },
+          "id": {
+            "description": "Unique identifer for the object.",
+            "type": "number"
+          },
+          "order_type": {
+            "description": "Order type for the strategy. e.g. Limit, Market",
+            "type": "string"
+          },
+          "priority": {
+            "description": "Display order for the strategies.",
+            "type": "number"
+          },
+          "symbol": {
+            "description": "Machine readable identifier.",
+            "type": "string"
+          },
+          "time_type": {
+            "description": "Time in force for the strategy.",
+            "type": "string"
+          }
+        },
+        "required": ["id", "symbol"]
+      },
+      "Stream": {
+        "properties": {
+          "created_ts": { "type": "number" },
+          "description": { "type": "string" },
+          "display": { "type": "string" },
+          "symbol": { "type": "string" },
+          "updated_ts": { "type": "number" }
+        },
+        "required": ["created_ts", "display", "symbol"]
+      },
+      "StreamUpdate": {
+        "properties": {
+          "display": { "type": "string" },
+          "description": { "type": "string" }
         }
+      },
+      "Team": {
+        "properties": {
+          "created_ts": { "type": "number" },
+          "description": { "type": "string" },
+          "display": { "type": "string" },
+          "symbol": { "type": "string" },
+          "updated_ts": { "type": "number" }
+        },
+        "required": ["created_ts", "symbol"]
+      },
+      "TeamUpdate": {
+        "properties": {
+          "description": { "type": "string" },
+          "display": { "type": "string" }
+        }
+      },
+      "Tenor": {
+        "properties": {
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
+          },
+          "id": {
+            "description": "Unique identifer for the object.",
+            "type": "number"
+          },
+          "priority": {
+            "description": "Display order for the tenor.",
+            "type": "number"
+          },
+          "symbol": {
+            "description": "Machine readable identifier.",
+            "type": "string"
+          }
+        },
+        "required": ["id", "symbol"]
+      },
+      "TimeoutNotifications": {
+        "properties": {
+          "taker_email": {
+            "description": "Email to receive non-response notifications as a taker",
+            "type": "string"
+          },
+          "liquidity_provider_email": {
+            "description": "Email to receive non-response notifications as a liquidity provider.",
+            "type": "string"
+          }
+        }
+      },
+      "TimeoutNotificationsUpdate": {
+        "properties": {
+          "taker_email": {
+            "description": "Email to receive non-response notifications as a taker",
+            "type": "string"
+          },
+          "liquidity_provider_email": {
+            "description": "Email to receive non-response notifications as a liquidity provider",
+            "type": "string"
+          }
+        }
+      },
+      "Trade": {
+        "properties": {
+          "accnt": { "type": "string" },
+          "cost": { "type": "number" },
+          "exec_id": { "type": "string" },
+          "exec_venue": { "type": "string" },
+          "instr": { "type": "string" },
+          "liq_ind": { "type": "string" },
+          "market": { "type": "string" },
+          "order_id": { "type": "string" },
+          "price": { "type": "number" },
+          "qty": { "type": "number" },
+          "qty_type": { "type": "string" },
+          "quote_id": { "type": "string" },
+          "settl_date": { "type": "string" },
+          "side": { "type": "string" },
+          "tenor": { "type": "string" },
+          "trans_ts": { "type": "number" },
+          "user": { "type": "string" }
+        }
+      },
+      "User": {
+        "properties": {
+          "active_ts": { "type": "number" },
+          "company": { "type": "string" },
+          "created_ts": { "type": "number" },
+          "email": { "type": "string" },
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "mfa": { "type": "string" },
+          "password_ts": { "type": "number" },
+          "picture": { "type": "string" },
+          "require_mfa": { "type": "boolean" },
+          "require_reset": { "type": "boolean" },
+          "suspended": { "type": "boolean" },
+          "updated_ts": { "type": "number" }
+        },
+        "required": ["created_ts", "email", "id", "name"]
+      },
+      "UserActivity": {
+        "properties": {
+          "ip": { "type": "string" },
+          "provider": { "type": "string" },
+          "reason": { "type": "string" },
+          "success": { "type": "string" },
+          "ts": { "type": "string" },
+          "type": { "type": "string" },
+          "browser": { "type": "string" },
+          "browserVersion": { "type": "string" },
+          "city": { "type": "string" },
+          "location": { "type": "string" },
+          "os": { "type": "string" },
+          "platform": { "type": "string" },
+          "region": { "type": "string" }
+        },
+        "required": [
+          "ip",
+          "provider",
+          "reason",
+          "success",
+          "ts",
+          "type",
+          "browser",
+          "browserVersion",
+          "city",
+          "location",
+          "os",
+          "platform",
+          "region"
+        ]
+      },
+      "UserUpdate": {
+        "properties": {
+          "email": {
+            "description": "The users email address.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The full name of the user.",
+            "type": "string"
+          },
+          "picture": {
+            "description": "A https link to the users picture.",
+            "type": "string"
+          }
+        }
+      },
+      "UserUpdateAdmin": {
+        "properties": {
+          "email": {
+            "description": "The users email address.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The full name of the user.",
+            "type": "string"
+          },
+          "organization": {
+            "description": "The users organization.",
+            "type": "string"
+          },
+          "picture": {
+            "description": "A https link to the users picture.",
+            "type": "string"
+          },
+          "username": {
+            "description": "A default username for the user.",
+            "type": "string"
+          }
+        }
+      },
+      "Venue": {
+        "properties": {
+          "display": {
+            "description": "Human readable description.",
+            "type": "string"
+          },
+          "flags": {
+            "description": "Flags to indicate the capabilities of the venue.",
+            "type": "number"
+          },
+          "id": {
+            "description": "Unique identifer for the object.",
+            "type": "number"
+          },
+          "symbol": {
+            "description": "Machine readable identifier.",
+            "type": "string"
+          }
+        },
+        "required": ["symbol"]
       }
     },
-    "security": [{
-      "bearer": []
-    }],
-    "externalDocs": {
-      "url": "https://developer.reactivemarkets.com"
+    "securitySchemes": {
+      "bearer": { "type": "http", "scheme": "bearer", "bearerFormat": "JWT" }
     }
-  }
-  
+  },
+  "security": [{ "bearer": [] }],
+  "externalDocs": { "url": "https://developer.reactivemarkets.com" }
+}
