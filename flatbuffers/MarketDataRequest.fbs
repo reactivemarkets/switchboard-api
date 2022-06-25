@@ -25,6 +25,8 @@ table Market {
     venue: string (required);
     /// Tenor symbol, defaults to SP.
     tenor: string;
+    /// Security Type. defaults to SpotFwd.
+    security_type: SecurityType;
 }
 
 /// The Market Data Request message is sent by the taker to update the 

@@ -30,6 +30,8 @@ table OrderCancelReject {
     venue: string (required);
     /// Tenor symbol.
     tenor: string;
+    /// Security Type. defaults to SpotFwd.
+    security_type: SecurityType;
     /// The order identifier assigned by the trading system.
     order_id: string (required);
     /// Request identifier assigned by the client.
