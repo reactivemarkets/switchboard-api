@@ -62,6 +62,16 @@ enum QuoteType: int16 {
     FullAmountLadder = 7
 }
 
+enum SecurityType: int16 {
+    None = 0,
+    SpotFwd,
+    Future,
+    CFD,
+    Swap,
+    Perp,
+    NDF,
+}
+
 // Buy or sell side of the market.
 enum Side: int16 {
     Sell = -1,
