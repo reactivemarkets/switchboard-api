@@ -36,6 +36,8 @@ table ExecutionReport {
     venue: string (required);
     /// Tenor symbol.
     tenor: string;
+    /// Security Type. defaults to SpotFwd.
+    security_type: SecurityType;
     /// Unique execution identifier.
     exec_id: string (required);
     /// Unique order identifier.
