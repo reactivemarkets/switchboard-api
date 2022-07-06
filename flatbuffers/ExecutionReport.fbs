@@ -36,8 +36,6 @@ table ExecutionReport {
     venue: string (required);
     /// Tenor symbol.
     tenor: string;
-    /// Security Type. defaults to SpotFwd.
-    security_type: SecurityType;
     /// Unique execution identifier.
     exec_id: string (required);
     /// Unique order identifier.
@@ -46,6 +44,8 @@ table ExecutionReport {
     quote_id: string;
     /// Request identifier assigned by the client.
     cl_order_id: string;
+    /// Security Type. defaults to SpotFwd.
+    security_type: SecurityType;
     /// Order side.
     side: Side;
     /// See OrderType.
@@ -56,6 +56,8 @@ table ExecutionReport {
     exec_type: ExecType;
     /// Describes the current state of the order.
     order_status: OrderStatus;
+    /// Liquidity indicator.
+    liq_ind: LiqInd;
     /// Order quantity.
     qty: double;
     /// Order price.
@@ -72,10 +74,10 @@ table ExecutionReport {
     last_qty: double;
     /// Last trade price.
     last_price: double;
+    /// The fixing date in YYYYMMDD format.
+    fixing_date: int;
     /// The settlement date at the time of transaction in YYYYMMDD format.
-    settlement_date: string;
-    /// Liquidity indicator.
-    liq_ind: LiqInd;
+    settlement_date: int;
     /// Underyling execution venue.
     exec_venue: string;
     /// Counter-party on the other side of the trade.
