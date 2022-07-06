@@ -38,10 +38,10 @@ table NewOrderSingle {
     venue: string (required);
     /// Tenor symbol. Defaults to SP.
     tenor: string;
-    /// Security Type. defaults to SpotFwd.
-    security_type: SecurityType;
     /// Request identifier assigned by the client (Max 48 characters).
     cl_order_id: string (required);
+    /// Security Type. defaults to SpotFwd.
+    security_type: SecurityType;
     /// Order side.
     side: Side;
     /// See OrderType

@@ -20,7 +20,7 @@ namespace Switchboard;
 
 struct MDEntry {
     // Bitset describing conditions of the quote.
-    conditions: uint16;
+    conditions: ushort;
     /// Size of the MDEntry.
     size: double;
     /// Price of the MDEntry.
@@ -42,10 +42,14 @@ table MarketDataSnapshot {
     tenor: string;
     /// Security Type. defaults to SpotFwd.
     security_type: SecurityType;
-    /// Quote identifier.
-    quote_id: string;
     /// Quote or liquidity type.
     quote_type: QuoteType;
+    /// The fixing date in YYYYMMDD format.
+    fixing_date: int;
+    /// The settlement date in YYYYMMDD format.
+    settlement_date: int;
+    /// Quote identifier.
+    quote_id: string;
     /// Bid market data entries.
     bid: [MDEntry] (required);
     /// Offer market data entries.
