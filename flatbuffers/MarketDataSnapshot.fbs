@@ -25,6 +25,8 @@ struct MDEntry {
     size: double;
     /// Price of the MDEntry.
     price: double;
+    /// Forward points of the MDEntry.
+    fwd_points: double;
 }
 
 table MarketDataSnapshot {
