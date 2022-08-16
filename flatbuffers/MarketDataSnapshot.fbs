@@ -53,7 +53,7 @@ table MarketDataSnapshot {
     /// Quote identifier.
     quote_id: string;
     /// Bid market data entries.
-    bid: [MDEntry] (required);
+    bid: [MDEntry];
     /// Offer market data entries.
-    offer: [MDEntry] (required);
+    offer: [MDEntry];
 }
