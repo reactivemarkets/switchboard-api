@@ -19,7 +19,7 @@ include "Enum.fbs";
 namespace Switchboard;
 
 struct MDEntry {
-    // Bitset describing conditions of the quote.
+    /// Bitset describing conditions of the quote.
     conditions: ushort;
     /// Size of the MDEntry.
     size: double;
@@ -27,13 +27,13 @@ struct MDEntry {
     price: double;
     /// Forward points of the MDEntry.
     fwd_points: double;
+    /// Reserved for future use.
+    reserved: double;
 }
 
 table MarketDataSnapshot {
     /// Source system timestamp.
     orig_time: long;
-    /// Request identifier assigned by the client.
-    req_id: string;
     /// Trading account.
     account: string (required);
     /// Instrument symbol.
