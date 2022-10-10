@@ -62,4 +62,6 @@ table NewOrderSingle {
     parameters: [StrategyParameter];
     /// Free text field for customer use. Max 128 characters.
     text: string;
+    /// Comma-delimited list of order execution venues. Ignored if venue is not AGG.
+    venue_filter: string;
 }
