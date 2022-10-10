@@ -86,6 +86,6 @@ table ExecutionReport {
     error_code: int;
     /// Supplementary information, primarily used for rejects.
     text: string;
-    /// Comma-delimited list of order execution venues specified on the order.
-    venue_filter: string;
+    /// A list of order execution venues specified on the order.
+    venue_filter: [string];
 }
