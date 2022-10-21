@@ -14,13 +14,19 @@
 //
 // See https://developer.reactivemarkets.com for documentation.
 
+include "Enum.fbs";
+
 namespace Switchboard;
 
-table MarketDataRequestReject {
-    /// Request identifier specified on the Market Data Request.
+table QuoteAcknowledgement {
+    /// Request identifier specified on the Quote Request.
     req_id: string (required);
-    /// Code to identify reason for rejecting the Market Data Request.
+    /// Unique identifier that will be supplied with every Quote.
+    quote_id: string;
+    /// Status in response to Quote Request or Quote Cancel.
+    ack_status: QuoteAckStatus;
+    /// Code to identify reason for rejecting the Quote Request.
     code: int;
-    /// Supplementary information relating to the reject.
+    /// Supplementary information relating to the reject or cancel.
     text: string;
 }

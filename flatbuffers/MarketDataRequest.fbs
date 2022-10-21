@@ -25,8 +25,8 @@ table Market {
     venue: string (required);
     /// Tenor symbol, defaults to SP.
     tenor: string;
-    /// Security Type. defaults to SpotFwd.
-    security_type: SecurityType;
+    /// Security Type. defaults to Spot.
+    security_type: SecurityType = Spot;
 }
 
 /// The Market Data Request message is sent by the taker to update the 
@@ -37,7 +37,7 @@ table Market {
 table MarketDataRequest {
     /// Trading account.
     account: string (required);
-    /// Request identifier assigned by the client.
+    /// Request identifier assigned by the client. (Max 48 characters).
     req_id: string (required);
     /// Subscription request type.
     sub_req_type: SubReqType;

@@ -18,27 +18,35 @@ include "Enum.fbs";
 
 namespace Switchboard;
 
-/// The Order Replace Request message is sent by the taker to revise the 
-/// quantity or price of a resting order.
-table OrderReplaceRequest {
+/// The Quote Request message is sent by the taker to request a new quote
+/// for the session.
+table QuoteRequest {
     /// Trading account.
     account: string (required);
+    /// Quote request identifier assigned by the client. (Max 48 characters).
+    req_id: string (required);
     /// Instrument symbol.
     symbol: string (required);
     /// Exchange or venue symbol.
     venue: string (required);
-    /// Tenor symbol.
+    /// Tenor symbol, for swaps refers to the near leg.
     tenor: string;
     /// Security Type. defaults to Spot.
     security_type: SecurityType = Spot;
-    /// Request identifier assigned by the client.
-    cl_order_id: string (required);
-    /// The order identifier assigned by the trading system.
-    order_id: string;
-    /// The cl_order_id specified on the most recent order revision.
-    orig_cl_order_id: string;
-    /// The revised order quantity. MUST be greater than zero.
+    /// Quote side. If none, this is a two-way request.
+    side: Side;
+    /// Quote currency.
+    ccy: string;
+    /// Quote quantity. MUST be greater than zero.
     qty: double;
-    /// The revised order price.
-    price: double;
+    /// The fixing date in YYYYMMDD format.
+    fixing_date: int;
+    /// Swaps only, refers to the far leg.
+    far_tenor: string;
+    /// Swaps only, far leg quantity.
+    far_qty: double;
+    /// Swaps only, far leg fixing date in YYYYMMDD format.
+    far_fixing_date: int;
+    /// A list of quote venues. Ignored if venue is not AGG.
+    venue_filter: [string];
 }

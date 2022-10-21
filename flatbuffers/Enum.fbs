@@ -37,6 +37,12 @@ enum LiqInd: int16 {
     Taker
 }
 
+enum MarketDataStatus: int16 {
+    None = 0,
+    Accepted,
+    Rejected
+}
+
 enum OrderStatus: int16 {
     None = 0,
     New,
@@ -54,6 +60,13 @@ enum OrderType: int16 {
     PreviouslyQuoted
 }
 
+enum QuoteAckStatus: int16 {
+    None = 0,
+    Accepted,
+    Canceled,
+    Rejected
+}
+
 enum QuoteType: int16 {
     None = 0,
     OrderBook = 4,
@@ -64,7 +77,7 @@ enum QuoteType: int16 {
 
 enum SecurityType: int16 {
     None = 0,
-    SpotFwd,
+    Spot,
     Future,
     CFD,
     Swap,
