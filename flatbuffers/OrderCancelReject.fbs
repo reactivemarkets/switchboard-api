@@ -36,8 +36,8 @@ table OrderCancelReject {
     cl_order_id: string;
     /// The cl_order_id specified on the most recent order revision.
     orig_cl_order_id: string;
-    /// Security Type. defaults to SpotFwd.
-    security_type: SecurityType;
+    /// Security Type. defaults to Spot.
+    security_type: SecurityType = Spot;
     /// Order quantity.
     qty: double;
     /// Order price.

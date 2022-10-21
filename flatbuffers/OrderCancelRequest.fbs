@@ -31,8 +31,8 @@ table OrderCancelRequest {
     venue: string (required);
     /// Tenor symbol.
     tenor: string;
-    /// Security Type. defaults to SpotFwd.
-    security_type: SecurityType;
+    /// Security Type. defaults to Spot.
+    security_type: SecurityType = Spot;
     /// Request identifier assigned by the client.
     cl_order_id: string (required);
     /// The order identifier assigned by the trading system.

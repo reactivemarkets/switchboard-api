@@ -16,13 +16,17 @@
 
 include "ExecutionReport.fbs";
 include "Heartbeat.fbs";
+include "MarketDataAcknowledgement.fbs";
 include "MarketDataRequest.fbs";
-include "MarketDataRequestReject.fbs";
 include "MarketDataSnapshot.fbs";
 include "NewOrderSingle.fbs";
 include "OrderCancelReject.fbs";
 include "OrderCancelRequest.fbs";
 include "OrderReplaceRequest.fbs";
+include "Quote.fbs";
+include "QuoteAcknowledgement.fbs";
+include "QuoteCancel.fbs";
+include "QuoteRequest.fbs";
 include "Reject.fbs";
 include "TestRequest.fbs";
 
@@ -36,14 +40,18 @@ union Body {
     ExecutionReport,
     Heartbeat,
     MarketDataRequest,
-    MarketDataRequestReject,
+    MarketDataAcknowledgement,
     MarketDataSnapshot,
     NewOrderSingle,
     OrderCancelReject,
     OrderCancelRequest,
     OrderReplaceRequest,
     Reject,
-    TestRequest
+    TestRequest,
+    Quote,
+    QuoteAcknowledgement,
+    QuoteCancel,
+    QuoteRequest
 }
 
 table Message {

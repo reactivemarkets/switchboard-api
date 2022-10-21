@@ -42,8 +42,8 @@ table MarketDataSnapshot {
     venue: string (required);
     /// Tenor symbol.
     tenor: string;
-    /// Security Type. defaults to SpotFwd.
-    security_type: SecurityType;
+    /// Security Type. defaults to Spot.
+    security_type: SecurityType = Spot;
     /// Quote or liquidity type.
     quote_type: QuoteType;
     /// The fixing date in YYYYMMDD format.
