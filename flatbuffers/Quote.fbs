@@ -18,7 +18,9 @@ include "Enum.fbs";
 
 namespace Switchboard;
 
-struct QuotePrices {
+struct QuoteEntry {
+    /// Bitset describing conditions of the quote.
+    conditions: ushort;
     /// Size of the QuoteEntry.
     size: double;
     /// Price of the QuoteEntry.
@@ -31,27 +33,8 @@ struct QuotePrices {
     far_price: double;
     /// Swap only, far leg forward points.
     far_fwd_points: double;
-    /// Swap points of the QuoteEntry.  
+    /// Swap points of the QuoteEntry.
     swap_points: double;
-}
-
-table QuoteEntry {
-    /// Unique identifier.
-    entry_id: string;
-    /// The fixing date in YYYYMMDD format.
-    fixing_date: int;
-    /// The settlement date in YYYYMMDD format.
-    settlement_date: int;
-    /// The fixing date in YYYYMMDD format.
-    far_fixing_date: int;
-    /// The settlement date in YYYYMMDD format.
-    far_settlement_date: int;
-    /// Bid quote prices 
-    bid: [QuotePrices];
-    /// Offer quote prices
-    offer: [QuotePrices];
-    /// Exchange or venue symbol.
-    venue: string (required);
 }
 
 table Quote {
@@ -63,16 +46,32 @@ table Quote {
     symbol: string (required);
     /// Tenor symbol.
     tenor: string;
-    /// Swaps only, far leg tenor.
-    far_tenor: string;
     /// Security Type. defaults to Spot.
     security_type: SecurityType = Spot;
     /// Request identifier specified on the Quote Request.
     req_id: string (required);
     /// Unique identifier that will be supplied with every Quote.
     quote_id: string (required);
+    /// Exchange or venue symbol.
+    venue: string (required);
+    /// Quote expiry time.
+    expiry_time: long;
     /// Quote currency.
     ccy: string;
-    /// Quote entries.
-    entries: [QuoteEntry];
+    /// Unique identifier.
+    entry_id: string;
+    /// The fixing date in YYYYMMDD format.
+    fixing_date: int;
+    /// The settlement date in YYYYMMDD format.
+    settlement_date: int;
+    /// The fixing date in YYYYMMDD format.
+    far_fixing_date: int;
+    /// The settlement date in YYYYMMDD format.
+    far_settlement_date: int;
+    /// Swaps only, far leg tenor.
+    far_tenor: string;
+    /// Bid quote entries.
+    bid: [QuoteEntry];
+    /// Offer quote entries.
+    offer: [QuoteEntry];
 }
