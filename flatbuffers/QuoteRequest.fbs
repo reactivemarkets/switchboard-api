@@ -33,6 +33,8 @@ table QuoteRequest {
     tenor: string;
     /// Security Type. defaults to Spot.
     security_type: SecurityType = Spot;
+    /// Quote request expiry time.
+    expiry_time: long;
     /// Quote side. If none, this is a two-way request.
     side: Side;
     /// Quote currency.
