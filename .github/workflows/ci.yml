@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: neomantra/flatbuffers:v1.12.0
+    container: neomantra/flatbuffers:latest
     steps:
       - name: Checkout project
         uses: actions/checkout@v2

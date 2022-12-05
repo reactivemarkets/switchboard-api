@@ -22,7 +22,7 @@ table StrategyParameter {
     /// Name of parameter
     name: string (required);
     /// Datatype of the parameter.
-    type: StrategyParameterType;
+    parameter_type: StrategyParameterType;
     /// Value of the parameter.
     value: string (required);
 }
@@ -45,7 +45,7 @@ table NewOrderSingle {
     /// Order side.
     side: Side;
     /// See OrderType
-    order_type: OrderType;
+    order_type: string;
     /// See TimeInForce
     time_in_force: TimeInForce;
     /// Order quantity. MUST be greater than zero.

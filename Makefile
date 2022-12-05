@@ -35,7 +35,7 @@ generate-rust:
 .PHONY: generate-ts
 generate-ts:
 	@echo "Generating typescript files..."
-	@flatc --ts --short-names --no-fb-import -o ${DEST}/typescript ${SRC}
+	@flatc --ts --ts-flat-files -o ${DEST}/typescript ${SRC}
 
 .PHONY: clean
 clean:
