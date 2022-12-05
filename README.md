@@ -24,16 +24,16 @@ See our [Developer Docs](https://developer.reactivemarkets.com) for full documen
 
 The Flatbuffers schema files are located in the [flatbuffers](flatbuffers/) directory.
 
-Code can be generated for all languages supported by Flatbuffers using the `flatc` compiler:
+Code can be generated for all languages supported by Flatbuffers using the `flatc` (>= v22.11.23) compiler:
 
 ```bash
-$ flatc --rust flatbuffers/*.fbs
+flatc --rust flatbuffers/*.fbs
 ```
 
 If you don't want to install flatc, you can use a docker container as a build tool.
 
 ```bash
-docker run --rm -v $(pwd):/api neomantra/flatbuffers:v1.12.0 bash -c "flatc --rust -o /api/build/rust /api/flatbuffers/*.fbs"
+docker run --rm -v $(pwd):/api neomantra/flatbuffers:v22.11.23 bash -c "flatc --rust -o /api/build/rust /api/flatbuffers/*.fbs"
 ```
 
 ## Contributing
