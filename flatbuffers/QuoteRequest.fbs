@@ -50,5 +50,5 @@ table QuoteRequest {
     /// Swaps only, far leg fixing date in YYYYMMDD format.
     far_fixing_date: int;
     /// A list of quote venues. Ignored if venue is not AGG.
-    venue_filter: [string];
+    exec_venues: [string];
 }

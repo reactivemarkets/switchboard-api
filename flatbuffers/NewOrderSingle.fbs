@@ -44,7 +44,7 @@ table NewOrderSingle {
     security_type: SecurityType = Spot;
     /// Order side.
     side: Side;
-    /// See OrderType
+    /// Order Type to execute with.
     order_type: string;
     /// See TimeInForce
     time_in_force: TimeInForce;
@@ -63,5 +63,5 @@ table NewOrderSingle {
     /// Free text field for customer use. Max 128 characters.
     text: string;
     /// A list of order execution venues. Ignored if venue is not AGG.
-    venue_filter: [string];
+    exec_venues: [string];
 }
