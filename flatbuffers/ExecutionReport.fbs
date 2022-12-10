@@ -15,6 +15,7 @@
 // See https://developer.reactivemarkets.com for documentation.
 
 include "Enum.fbs";
+include "StrategyParameter.fbs";
 
 namespace Switchboard;
 
@@ -49,7 +50,7 @@ table ExecutionReport {
     /// Order side.
     side: Side;
     /// See OrderType.
-    order_type: string;
+    order_type: OrderType;
     /// See TimeInForce.
     time_in_force: TimeInForce;
     /// See ExecType.
@@ -84,6 +85,10 @@ table ExecutionReport {
     counterparty: string;
     /// Optional code to identify the order reject reason when ExecType Rejected.
     error_code: int;
+    /// Target strategy for order execution.
+    strategy: string;
+    /// Strategy Parameters
+    strategy_parameters: [StrategyParameter];
     /// Supplementary information, primarily used for rejects.
     text: string;
     /// A list of order execution venues specified on the order.

@@ -53,6 +53,13 @@ enum OrderStatus: int16 {
     PendingNew
 }
 
+enum OrderType: int16 {
+    None = 0,
+    Market,
+    Limit,
+    PreviouslyQuoted
+}
+
 enum QuoteAckStatus: int16 {
     None = 0,
     Accepted,
