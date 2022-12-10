@@ -15,17 +15,9 @@
 // See https://developer.reactivemarkets.com for documentation.
 
 include "Enum.fbs";
+include "StrategyParameter.fbs";
 
 namespace Switchboard;
-
-table StrategyParameter {
-    /// Name of parameter
-    name: string (required);
-    /// Datatype of the parameter.
-    parameter_type: StrategyParameterType;
-    /// Value of the parameter.
-    value: string (required);
-}
 
 /// The New Order Single message is sent by the taker to create a new order for execution.
 /// The maker is expected to respond immediately with a Execution Report message under normal conditions.
@@ -44,9 +36,9 @@ table NewOrderSingle {
     security_type: SecurityType = Spot;
     /// Order side.
     side: Side;
-    /// Order Type to execute with.
-    order_type: string;
-    /// See TimeInForce
+    /// See OrderType.
+    order_type: OrderType;
+    /// See TimeInForce.
     time_in_force: TimeInForce;
     /// Order quantity. MUST be greater than zero.
     qty: double;
@@ -58,8 +50,10 @@ table NewOrderSingle {
     price_tolerance: double;
     /// Quote Indentifier.
     quote_id: string;
+    /// Target strategy for order execution.
+    strategy: string;
     /// Strategy Parameters
-    parameters: [StrategyParameter];
+    strategy_parameters: [StrategyParameter];
     /// Free text field for customer use. Max 128 characters.
     text: string;
     /// A list of order execution venues. Ignored if venue is not AGG.
