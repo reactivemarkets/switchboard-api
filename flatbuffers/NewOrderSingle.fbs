@@ -42,7 +42,7 @@ table NewOrderSingle {
     time_in_force: TimeInForce;
     /// Order quantity. MUST be greater than zero.
     qty: double;
-    /// Order price.
+    /// All-in order price.
     price: double;
     /// Order currency.
     ccy: string;
@@ -58,4 +58,10 @@ table NewOrderSingle {
     text: string;
     /// A list of order execution venues. Ignored if venue is not AGG.
     exec_venues: [string];
+    /// Swap only, far leg all-in price.
+    far_price: double;
+    /// Swap only, far leg quantity.
+    far_qty: double;
+    /// Swaps only, far leg tenor.
+    far_tenor: string;
 }
