@@ -93,4 +93,14 @@ table ExecutionReport {
     text: string;
     /// A list of order execution venues specified on the order.
     exec_venues: [string];
+    /// Last forward points.
+    last_fwd_points: double;
+    /// Swap only, far leg last forward points.
+    last_far_fwd_points: double;
+    /// Swap only, far leg all-in price.
+    far_price: double;
+    /// Swap only, far leg quantity.
+    far_qty: double;
+    /// Swaps only, far leg tenor.
+    far_tenor: string;
 }
