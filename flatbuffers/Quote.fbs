@@ -62,8 +62,12 @@ table Quote {
     entry_id: string;
     /// The fixing date in YYYYMMDD format.
     fixing_date: int;
+    /// The settlement date in YYYYMMDD format.
+    settlement_date: int;
     /// Swaps only, fixing date in YYYYMMDD format.
     far_fixing_date: int;
+    /// The settlement date in YYYYMMDD format.
+    far_settlement_date: int;
     /// Swaps only, far leg tenor.
     far_tenor: string;
     /// Bid quote entries.
