@@ -14,6 +14,8 @@
 //
 // See https://developer.reactivemarkets.com for documentation.
 
+include "Metric.fbs";
+
 namespace Switchboard;
 
 /// The Heartbeat message is used to ensure that sessions remain active and to
@@ -29,4 +31,6 @@ namespace Switchboard;
 table Heartbeat {
     /// Required when the heartbeat is the result of a Test Request.
     req_id: string;
+    /// Optional array of metrics for monitoring purposes.
+    metrics: [Metric];
 }

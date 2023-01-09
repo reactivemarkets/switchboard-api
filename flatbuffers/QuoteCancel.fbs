@@ -22,5 +22,5 @@ table QuoteCancel {
     /// Request identifier specified on the Quote Request.
     req_id: string (required);
     /// Unique identifier that will be supplied with every Quote.
-    quote_id: string (required);
+    quote_id: string;
 }

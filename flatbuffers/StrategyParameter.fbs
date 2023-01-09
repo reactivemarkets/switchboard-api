@@ -19,7 +19,7 @@ include "Enum.fbs";
 namespace Switchboard;
 
 table StrategyParameter {
-    /// Name of parameter
+    /// Name of the parameter.
     name: string (required);
     /// Datatype of the parameter.
     parameter_type: StrategyParameterType;
