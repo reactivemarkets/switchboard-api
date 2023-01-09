@@ -14,23 +14,11 @@
 //
 // See https://developer.reactivemarkets.com for documentation.
 
-include "Enum.fbs";
-include "Market.fbs";
-
 namespace Switchboard;
 
-/// The Market Data Request message is sent by the taker to update the 
-/// market-data subscription list for the session.
-/// All active subscriptions will be cancelled by the maker when the 
-/// session is disconnected, so they must be reissued by the taker when 
-/// the session is reestablished.
-table MarketDataRequest {
-    /// Trading account.
-    account: string (required);
-    /// Request identifier assigned by the client. (Max 48 characters).
-    req_id: string (required);
-    /// Subscription request type.
-    sub_req_type: SubReqType;
-    /// Market list to un/subscribe to. 
-    markets: [Market] (required);
+table Metric {
+    /// Name of the metric.
+    name: string (required);
+    /// Value of the metric.
+    value: double;
 }

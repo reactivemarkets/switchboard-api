@@ -14,6 +14,8 @@
 //
 // See https://developer.reactivemarkets.com for documentation.
 
+include "Metric.fbs";
+
 namespace Switchboard;
 
 /// The Test Request message forces a Heartbeat message from the opposing 
@@ -25,4 +27,6 @@ namespace Switchboard;
 table TestRequest {
     /// Identifier to be returned in resulting Heartbeat.
     req_id: string (required);
+    /// Optional array of metrics for monitoring purposes.
+    metrics: [Metric];
 }
