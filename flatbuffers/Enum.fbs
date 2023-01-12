@@ -120,3 +120,11 @@ enum TimeInForce: int16 {
     IOC = 3,
     FOK = 4,
 }
+
+enum RoundingMethod : uint16 {
+  None = 0,
+  RoundPriceHalfUp = 1,
+  RoundPriceHalfToEven = 2,
+  RoundPriceHalfTowardMid = 3,
+  RoundPriceAwayFromMid = 4,
+}

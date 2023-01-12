@@ -56,4 +56,8 @@ table MarketDataSnapshot {
     bid: [MDEntry];
     /// Offer market data entries.
     offer: [MDEntry];
+    // Decimal places for price
+    price_dp: int16;
+    // Rounding method
+    rounding_method: RoundingMethod;
 }
