@@ -84,6 +84,7 @@ enum SecurityType: int16 {
     Perp,
     NDF,
     Forward,
+    NDFSwap,
 }
 
 // Buy or sell side of the market.
