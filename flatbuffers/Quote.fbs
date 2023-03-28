@@ -64,14 +64,14 @@ table Quote {
     fixing_date: int;
     /// The settlement date in YYYYMMDD format.
     settlement_date: int;
-    /// Swaps only, fixing date in YYYYMMDD format.
+    /// Swaps only, far leg fixing date in YYYYMMDD format.
     far_fixing_date: int;
-    /// The settlement date in YYYYMMDD format.
+    /// Swaps only, far leg settlement date in YYYYMMDD format.
     far_settlement_date: int;
     /// Swaps only, far leg tenor.
     far_tenor: string;
-    /// Bid quote entries.
-    bid: [QuoteEntry];
-    /// Offer quote entries.
-    offer: [QuoteEntry];
+    /// Bid quote.
+    bid: QuoteEntry;
+    /// Offer quote.
+    offer: QuoteEntry;
 }
