@@ -14,6 +14,8 @@
 //
 // See https://developer.reactivemarkets.com for documentation.
 
+include "Enum.fbs";
+
 namespace Switchboard;
 
 table QuoteCancel {
@@ -21,6 +23,12 @@ table QuoteCancel {
     account: string (required);
     /// Request identifier specified on the Quote Request.
     req_id: string (required);
+    /// Instrument symbol.
+    symbol: string (required);
+    /// Exchange or venue symbol.
+    venue: string (required);
+    /// Security Type. defaults to Spot.
+    security_type: SecurityType = Spot;
     /// Unique identifier that will be supplied with every Quote.
     quote_id: string;
 }
