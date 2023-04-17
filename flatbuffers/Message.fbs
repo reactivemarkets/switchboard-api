@@ -18,6 +18,7 @@ include "ExecutionReport.fbs";
 include "Heartbeat.fbs";
 include "MarketDataAcknowledgement.fbs";
 include "MarketDataRequest.fbs";
+include "MarketDataRequestReject.fbs";
 include "MarketDataSnapshot.fbs";
 include "NewOrderSingle.fbs";
 include "OrderCancelReject.fbs";
@@ -27,6 +28,7 @@ include "Quote.fbs";
 include "QuoteAcknowledgement.fbs";
 include "QuoteCancel.fbs";
 include "QuoteRequest.fbs";
+include "QuoteRequestReject.fbs";
 include "Reject.fbs";
 include "TestRequest.fbs";
 
@@ -51,7 +53,9 @@ union Body {
     Quote,
     QuoteAcknowledgement,
     QuoteCancel,
-    QuoteRequest
+    QuoteRequest,
+    QuoteRequestReject,
+    MarketDataRequestReject
 }
 
 table Message {
