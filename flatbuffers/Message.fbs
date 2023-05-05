@@ -16,7 +16,6 @@
 
 include "ExecutionReport.fbs";
 include "Heartbeat.fbs";
-include "MarketDataAcknowledgement.fbs";
 include "MarketDataRequest.fbs";
 include "MarketDataRequestReject.fbs";
 include "MarketDataSnapshot.fbs";
@@ -25,7 +24,6 @@ include "OrderCancelReject.fbs";
 include "OrderCancelRequest.fbs";
 include "OrderReplaceRequest.fbs";
 include "Quote.fbs";
-include "QuoteAcknowledgement.fbs";
 include "QuoteCancel.fbs";
 include "QuoteRequest.fbs";
 include "QuoteRequestReject.fbs";
@@ -39,23 +37,21 @@ file_extension "rms";
 namespace Switchboard;
 
 union Body {
-    ExecutionReport,
-    Heartbeat,
-    MarketDataRequest,
-    MarketDataAcknowledgement,
-    MarketDataSnapshot,
-    NewOrderSingle,
-    OrderCancelReject,
-    OrderCancelRequest,
-    OrderReplaceRequest,
-    Reject,
-    TestRequest,
-    Quote,
-    QuoteAcknowledgement,
-    QuoteCancel,
-    QuoteRequest,
-    QuoteRequestReject,
-    MarketDataRequestReject
+    ExecutionReport = 1,
+    Heartbeat = 2,
+    MarketDataRequest = 3,
+    MarketDataSnapshot = 5,
+    NewOrderSingle = 6,
+    OrderCancelReject = 7,
+    OrderCancelRequest = 8,
+    OrderReplaceRequest = 9,
+    Reject = 10,
+    TestRequest = 11,
+    Quote = 12,
+    QuoteCancel = 14,
+    QuoteRequest = 15,
+    QuoteRequestReject = 16,
+    MarketDataRequestReject = 17
 }
 
 table Message {
