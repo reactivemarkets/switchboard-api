@@ -40,6 +40,7 @@ union Body {
     ExecutionReport = 1,
     Heartbeat = 2,
     MarketDataRequest = 3,
+    MarketDataRequestReject = 4,
     MarketDataSnapshot = 5,
     NewOrderSingle = 6,
     OrderCancelReject = 7,
@@ -51,7 +52,6 @@ union Body {
     QuoteCancel = 14,
     QuoteRequest = 15,
     QuoteRequestReject = 16,
-    MarketDataRequestReject = 17
 }
 
 table Message {
