@@ -23,4 +23,6 @@ table QuoteRequestReject {
     code: int;
     /// Supplementary information relating to the reject or cancel.
     text: string;
+    /// Venue symbol, when Reject is from a single venue during an aggregate request.
+    venue: string;
 }
