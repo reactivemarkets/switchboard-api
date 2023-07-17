@@ -96,11 +96,25 @@ table ExecutionReport {
     /// Last forward points.
     last_fwd_points: double;
     /// Swap only, far leg last forward points.
-    last_far_fwd_points: double;
+    far_last_fwd_points: double;
     /// Swap only, far leg all-in price.
     far_price: double;
     /// Swap only, far leg quantity.
     far_qty: double;
     /// Swaps only, far leg tenor.
     far_tenor: string;
+    /// Swaps only, far leg total quantity filled.
+    far_cum_qty: double;
+    /// Swaps only, far leg average price of order fills.
+    far_avg_price: double;
+    /// Swaps only, far leg last trade quantity.
+    far_last_qty: double;
+    /// Swaps only, far last trade price.
+    far_last_price: double;
+    /// Swaps only, far leg fixing date in YYYYMMDD format.
+    far_fixing_date: int;
+    /// Swaps only, far leg settlement date at the time of transaction in YYYYMMDD format.
+    far_settlement_date: int;
+    /// Swaps only, far leg remaining order quantity.
+    far_leaves_qty: double;
 }
