@@ -74,4 +74,10 @@ table Quote {
     bid: [QuoteEntry];
     /// Offer quote entries.
     offer: [QuoteEntry];
+    /// Dodd-Frank mid price.
+    mid_price: double;
+    /// Swaps only, far leg Dodd-Frank mid price
+    far_mid_price: double;
+    /// Swaps only, Dodd-Frank mid swap points
+    mid_swap_points: double;
 }
