@@ -117,4 +117,10 @@ table ExecutionReport {
     far_settlement_date: int;
     /// Swaps only, far leg remaining order quantity.
     far_leaves_qty: double;
+    /// Dodd-Frank mid price.
+    mid_price: double;
+    /// Swaps only, far leg Dodd-Frank mid price
+    far_mid_price: double;
+    /// Swaps only, Dodd-Frank mid swap points
+    mid_swap_points: double;
 }

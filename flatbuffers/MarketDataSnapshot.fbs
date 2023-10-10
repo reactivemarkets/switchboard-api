@@ -56,4 +56,6 @@ table MarketDataSnapshot {
     bid: [MDEntry];
     /// Offer market data entries.
     offer: [MDEntry];
+    /// Dodd-Frank mid price.
+    mid_price: double;
 }
