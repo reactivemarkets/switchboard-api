@@ -107,4 +107,5 @@ enum TimeInForce: int16 {
     GTC = 2,
     IOC = 3,
     FOK = 4,
+    GFW = 5,
 }
