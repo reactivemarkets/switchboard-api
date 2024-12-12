@@ -28,6 +28,13 @@ enum ExecType: int16 {
     Trade
 }
 
+enum ExecInst: int16 {
+    None = 0,
+    Working = 1,
+    Suspended = 2,
+    Reinstate = 4
+}
+
 enum LiqInd: int16 {
     // No liquidity indicator.
     None = 0,
