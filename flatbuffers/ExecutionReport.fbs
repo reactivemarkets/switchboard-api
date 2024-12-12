@@ -123,4 +123,6 @@ table ExecutionReport {
     far_mid_price: double;
     /// Swaps only, Dodd-Frank mid swap points
     mid_swap_points: double;
+    /// See ExecInst.
+    exec_inst: ExecInst;
 }

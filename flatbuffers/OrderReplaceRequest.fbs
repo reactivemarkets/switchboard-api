@@ -44,4 +44,6 @@ table OrderReplaceRequest {
     price: double;
     /// Strategy Parameters
     strategy_parameters: [StrategyParameter];
+    /// Execution Instruction.
+    exec_inst: ExecInst;
 }
