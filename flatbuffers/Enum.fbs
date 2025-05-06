@@ -58,7 +58,8 @@ enum OrderType: int16 {
     None = 0,
     Market,
     Limit,
-    PreviouslyQuoted
+    PreviouslyQuoted,
+    Stop
 }
 
 enum QuoteType: int16 {
