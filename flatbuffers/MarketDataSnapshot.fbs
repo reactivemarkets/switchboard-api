@@ -58,4 +58,8 @@ table MarketDataSnapshot {
     offer: [MDEntry];
     /// Dodd-Frank mid price.
     mid_price: double;
+    /// Number of decimal places for prices in this market data snapshot.
+    price_dp: int;
+    /// Rounding method used for this market data snapshot.
+    rounding_method: RoundingMethod = None;
 }
