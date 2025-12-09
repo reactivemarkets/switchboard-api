@@ -70,6 +70,14 @@ enum QuoteType: int16 {
     FullAmountLadder = 7
 }
 
+enum RoundingMethod: int16 {
+    None = 0,
+    RoundPriceHalfUp,
+    RoundPriceHalfToEven,
+    RoundPriceHalfTowardMid,
+    RoundPriceAwayFromMid,
+}
+
 enum SecurityType: int16 {
     None = 0,
     Spot,
