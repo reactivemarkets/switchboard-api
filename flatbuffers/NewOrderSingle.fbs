@@ -15,6 +15,7 @@
 // See https://developer.reactivemarkets.com for documentation.
 
 include "Enum.fbs";
+include "Allocation.fbs";
 include "StrategyParameter.fbs";
 
 namespace Switchboard;
@@ -64,4 +65,6 @@ table NewOrderSingle {
     far_qty: double;
     /// Swaps only, far leg tenor.
     far_tenor: string;
+    /// Order fund allocations
+    allocations: [Allocation];
 }
